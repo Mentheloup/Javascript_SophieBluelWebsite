@@ -130,6 +130,30 @@ li:hover {
 	margin-bottom: 1em;
 }
 
+/* FILTER */
+
+filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+filter h2 {
+	border: 2px solid;
+	border-radius: 30px;
+
+	margin: 5px;
+	padding: 10px;
+
+	font-size: 15px;
+}
+
+:active filter h2 {
+	background-color: #1D6154;
+	border-color: #1D6154;
+	color: white;
+}
+
 /* GALLERY */
 .gallery {
 	width: 100%;
