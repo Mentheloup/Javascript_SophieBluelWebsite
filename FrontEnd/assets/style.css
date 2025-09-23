@@ -148,6 +148,12 @@ filter h2 {
 	font-size: 15px;
 }
 
+.change-color-filter {
+	background-color: #1D6154;
+	border-color: #1D6154;
+	color: white;
+}
+
 /* GALLERY */
 .gallery {
 	width: 100%;
