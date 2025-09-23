@@ -139,19 +139,13 @@ filter {
 }
 
 filter h2 {
-	border: 2px solid;
+	border: 1px solid;
 	border-radius: 30px;
 
-	margin: 5px;
-	padding: 10px;
+	margin: 8px;
+	padding: 10px 25px 10px 25px;
 
 	font-size: 15px;
-}
-
-:active filter h2 {
-	background-color: #1D6154;
-	border-color: #1D6154;
-	color: white;
 }
 
 /* GALLERY */
