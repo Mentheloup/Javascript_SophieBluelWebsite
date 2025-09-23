@@ -15,7 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, #mot-de-passe-oublie {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -130,6 +130,11 @@ li:hover {
 	margin-bottom: 1em;
 }
 
+/* NAV */
+ul a {
+	all: unset;
+}
+
 /* FILTER */
 
 filter {
@@ -171,7 +176,8 @@ filter h2 {
 /* CONTACT */
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
+	text-align: center;
 }
 #contact > * {
 	text-align: center;
@@ -219,3 +225,16 @@ footer nav ul {
 	margin: 2em
 }
 
+/* LOGIN */
+
+#mot-de-passe-oublie {
+	all: unset;
+
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	text-decoration: underline;
+}
