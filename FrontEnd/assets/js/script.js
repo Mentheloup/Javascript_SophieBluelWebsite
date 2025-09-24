@@ -11,6 +11,7 @@ async function fetchWorks() {
 const works = await fetchWorks();
 
 // BOUTONS FILTRES
+
 const listeFiltres = new Set();
 
 // On régupère les valeurs des filtres
@@ -34,13 +35,18 @@ function genererBoutonsFiltres (listeFiltres) {
     
     //Pour chaque element du set, créer bouton
     for (const element of listeFiltres) {
-        let nouveauFiltre = '<h2>' + element + '</h2>';
+        let nouveauFiltre = '<h2 class="filtre-' + element +'">' + element + '</h2>';
         baliseFilter.innerHTML += nouveauFiltre;
     }
+
+    //Mettre filtre 'Tous' en vert par défaut
+    const boutonFiltreTous = document.querySelector(".filtre-Tous");
+    boutonFiltreTous.classList.add('change-color-filter');
 }
 
 // WORKS
 
+// Générer le HTML pour les work
 function genererWorks (works) {
     // Récupérer le futur parent
     const parentGalery = document.querySelector(".gallery");
@@ -62,8 +68,63 @@ function genererWorks (works) {
     }
 }
 
+const filter = "Tous";
+
 //UTILISER LES FONCTIONS
 
 genererListeFiltres (works);
 genererBoutonsFiltres (listeFiltres);
-genererWorks(works);
+// genererWorks(works);
+genererWorksByFilter(filter, works);
+
+// WORKS FILTRER
+
+const boutonFiltreObjets = document.querySelector(".filtre-Objets");
+
+boutonFiltreObjets.addEventListener("click", function () {
+
+    boutonFiltreObjets.classList.add('change-color-filter');
+    console.log("Je veux");
+
+    // for (let i = 0; i < works.length; i++) {
+    //     if (works[i].category.name === "Tous") {
+    //         genererWorks(works);
+
+    //     } else {
+    //         // genererWorks(works.filter(work => work.category.name === works[1].category.name));
+            
+    //     }
+    // };
+
+    let workFilter = works.filter(work => work.category.name === "Objets");
+
+    console.log(workFilter);
+
+    const baliseFilter = document.querySelector("filter");
+
+    baliseFilter.innerHTML = '';
+
+    // genererWorks(workFilter);
+
+    
+    // for (let i = 0; i < works.length; i++) {
+    //     if (works[i].category.name != "Objets") {
+    //         works.filter(work => work.category.name === "Objects");
+    //         console.log(works);
+    //         return works;
+    //     }
+    //     else {
+    //         return works;
+    //     };
+    // };
+
+    
+});
+
+function genererWorksByFilter (filter, worksList) {
+    if (filter.value === "") {
+        genererWorks(worksList);
+    } else {
+        genererWorks(worksList.filter(work => work.category.name === "Objets"));
+    };
+}
