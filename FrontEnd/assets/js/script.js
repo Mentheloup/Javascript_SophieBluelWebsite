@@ -15,8 +15,6 @@ const listeFiltres = new Set();
 // //UTILISER LES FONCTIONS
 
 genererListeFiltres (listeFiltres, works);
-
-console.log(listeFiltres);
 genererBoutonsFiltres (listeFiltres);
 genererWorks(works);
 

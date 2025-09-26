@@ -7,7 +7,6 @@ export async function fetchWorks() {
 
 
 // BUTTONS
-// On régupère les valeurs des filtres
 export function genererListeFiltres (listeFiltres, works) {
 
     listeFiltres.add("Tous");
@@ -18,7 +17,6 @@ export function genererListeFiltres (listeFiltres, works) {
 
 }
 
-// On génère les boutons
 export function genererBoutonsFiltres (listeFiltres) {
 
     //Sous quelle balise
@@ -28,13 +26,17 @@ export function genererBoutonsFiltres (listeFiltres) {
     
     //Pour chaque element du set, créer bouton
     for (const element of listeFiltres) {
-        let nouveauFiltre = '<h2 class="filtre-' + element +'">' + element + '</h2>';
+
+        let nouveauFiltre =
+        '<input type="radio" id="filter-'+ element + '" class="filter-choice" name ="filter-choice" value="' + element + '" hidden/>'
+        + '<label class="filter-' + element +'" for="filter-' + element + '">' + element + '</label>';
         baliseFilter.innerHTML += nouveauFiltre;
+
     }
 
-    //Mettre filtre 'Tous' en vert par défaut
-    const boutonFiltreTous = document.querySelector(".filtre-Tous");
-    boutonFiltreTous.classList.add('change-color-filter');
+    //Checked par défaut le filtre 'Tous'
+    const boutonFiltreTous = document.querySelector("#filter-Tous");
+    boutonFiltreTous.checked = true;
 }
 
 // WORKS
