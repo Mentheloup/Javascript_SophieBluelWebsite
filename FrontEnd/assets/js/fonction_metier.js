@@ -5,6 +5,28 @@ export async function fetchWorks() {
     return works;
 }
 
+// WORKS
+
+export function genererWorks (works) {
+    // Récupérer le futur parent
+    const parentGalery = document.querySelector(".gallery");
+
+    parentGalery.innerHTML += '';
+
+    // Boucle pour constituer le bout d'HTML pour chaque work
+    for (let i = 0; i < works.length; i++) {
+        const work = works[i];
+
+        let newWork = 
+        '<figure>'
+        + '<img src="' + work.imageUrl +'" alt="'+ work.title +'">'
+        + '<figcaption>' + work.title + '</figcaption>'
+        + '</figure>'
+        ;
+
+        parentGalery.innerHTML += newWork;
+    }
+}
 
 // BUTTONS
 export function genererListeFiltres (listeFiltres, works) {
@@ -29,7 +51,7 @@ export function genererBoutonsFiltres (listeFiltres) {
 
         let nouveauFiltre =
         '<input type="radio" id="filter-'+ element + '" class="filter-choice" name ="filter-choice" value="' + element + '" hidden/>'
-        + '<label class="filter-' + element +'" for="filter-' + element + '">' + element + '</label>';
+        + '<label id="label-filter-' + element +'" for="filter-' + element + '">' + element + '</label>';
         baliseFilter.innerHTML += nouveauFiltre;
 
     }
@@ -37,28 +59,4 @@ export function genererBoutonsFiltres (listeFiltres) {
     //Checked par défaut le filtre 'Tous'
     const boutonFiltreTous = document.querySelector("#filter-Tous");
     boutonFiltreTous.checked = true;
-}
-
-// WORKS
-
-// Générer le HTML pour les work
-export function genererWorks (works) {
-    // Récupérer le futur parent
-    const parentGalery = document.querySelector(".gallery");
-
-    parentGalery.innerHTML += '';
-
-    // Boucle pour constituer le bout d'HTML pour chaque work
-    for (let i = 0; i < works.length; i++) {
-        const work = works[i];
-
-        let newWork = 
-        '<figure>'
-        + '<img src="' + work.imageUrl +'" alt="'+ work.title +'">'
-        + '<figcaption>' + work.title + '</figcaption>'
-        + '</figure>'
-        ;
-
-        parentGalery.innerHTML += newWork;
-    }
 }

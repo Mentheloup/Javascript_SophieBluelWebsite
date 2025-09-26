@@ -1,73 +1,42 @@
+// IMPORT
 import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks} from "./fonction_metier.js";
 
+
+// RECUPERER WORKS
 const serveur = "http://localhost:5678/api/";
 
 const works = await fetchWorks();
 
-console.log(works);
-
-// BOUTONS FILTRES
-
+//GENERER BOUTONS FILTRES
 const listeFiltres = new Set();
-
-// const filter = "Tous";
-
-// //UTILISER LES FONCTIONS
 
 genererListeFiltres (listeFiltres, works);
 genererBoutonsFiltres (listeFiltres);
-genererWorks(works);
 
-// genererWorksByFilter(filter, works);
 
-// // WORKS FILTRER
+// GENERER WORK A L'OUVERTURE DE LA PAGE
 
-// const boutonFiltreObjets = document.querySelector(".filtre-Objets");
+genererWorks (works);
 
-// boutonFiltreObjets.addEventListener("click", function () {
+// PRISE EN COMPTE DES FILTRES POUR GENERER LES WORKS
 
-//     boutonFiltreObjets.classList.add('change-color-filter');
-//     console.log("Je veux");
+// Filtre 'Tous' à part car ne correspond pas à une category existante dans les date
+const filterAll = document.querySelector("#filter-Tous");
 
-//     // for (let i = 0; i < works.length; i++) {
-//     //     if (works[i].category.name === "Tous") {
-//     //         genererWorks(works);
+filterAll.addEventListener("click", function() {
+    // On vide les works
+    document.querySelector(".gallery").innerHTML = '';
 
-//     //     } else {
-//     //         // genererWorks(works.filter(work => work.category.name === works[1].category.name));
-            
-//     //     }
-//     // };
+    // On en génère de nouveau, avec ou sans filtre
+    genererWorks(works);
+});
 
-//     let workFilter = works.filter(work => work.category.name === "Objets");
+// Les autres filtres
+const allFilters = document.querySelectorAll(".filter-choice:not(#filter-Tous)");
 
-//     console.log(workFilter);
-
-//     const baliseFilter = document.querySelector("filter");
-
-//     baliseFilter.innerHTML = '';
-
-//     // genererWorks(workFilter);
-
-    
-//     // for (let i = 0; i < works.length; i++) {
-//     //     if (works[i].category.name != "Objets") {
-//     //         works.filter(work => work.category.name === "Objects");
-//     //         console.log(works);
-//     //         return works;
-//     //     }
-//     //     else {
-//     //         return works;
-//     //     };
-//     // };
-
-    
-// });
-
-// function genererWorksByFilter (filter, worksList) {
-//     if (filter.value === "") {
-//         genererWorks(worksList);
-//     } else {
-//         genererWorks(worksList.filter(work => work.category.name === "Objets"));
-//     };
-// }
+for (const filter of allFilters) {
+    filter.addEventListener("click", function () {
+        document.querySelector(".gallery").innerHTML = '';
+        genererWorks(works.filter(work => work.category.name === this.value));
+    })
+};
