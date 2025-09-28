@@ -60,3 +60,32 @@ export function genererBoutonsFiltres (listeFiltres) {
     const boutonFiltreTous = document.querySelector("#filter-Tous");
     boutonFiltreTous.checked = true;
 }
+
+// FILTER
+
+export function ajouterListenerFilterTous (works) {
+    // PRISE EN COMPTE DES FILTRES POUR GENERER LES WORKS
+    
+    // Filtre 'Tous' à part car ne correspond pas à une category existante dans les data
+    const filterAll = document.querySelector("#filter-Tous");
+    
+    filterAll.addEventListener("click", function() {
+        // On vide les works
+        document.querySelector(".gallery").innerHTML = '';
+    
+        // On en génère de nouveau, avec ou sans filtre
+        genererWorks(works);
+    });
+};
+
+export function ajouterListenerAllFilter (works) {
+    // Les autres filtres
+    const allFilters = document.querySelectorAll(".filter-choice:not(#filter-Tous)");
+
+    for (const filter of allFilters) {
+        filter.addEventListener("click", function () {
+            document.querySelector(".gallery").innerHTML = '';
+            genererWorks(works.filter(work => work.category.name === this.value));
+        })
+    };
+};
