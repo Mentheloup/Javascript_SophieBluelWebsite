@@ -47,6 +47,8 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+
+/* GENERAL */
 body {
 	max-width: 1140px;
 	margin:auto;
@@ -83,6 +85,10 @@ h2{
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
+}
+
+.hidden {
+	display: none;
 }
 
 /* BARRE NAVIGATION */
@@ -136,14 +142,12 @@ ul a {
 
 /* FILTER */
 
-.hidden {
-	display: none;
-}
-
 filter {
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  margin-bottom: 10px;
 }
 
 filter label {
@@ -169,14 +173,25 @@ filter .filter-choice:checked + label {
 
 /* GALLERY */
 #headProjets {
-	display:flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 40px;
 }
 
-/* #titleProjets {
+#titleProjets {
 	position: absolute;
-} */
+}
+
+#modifyButton {
+	display: flex;
+	margin-left: 25em;
+}
+
+#modifyButton i {
+	margin-right: 7px;
+}
 
 .gallery {
 	width: 100%;

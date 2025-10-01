@@ -98,7 +98,8 @@ export function modeAdmin (token) {
 
         console.log("Admin !");
 
-        document.getElementById('filterSection').className = "";
+        document.getElementById('filterSection').className = "hidden";
+        document.getElementById('modifyButton').style = "";
     
 
     } else {
