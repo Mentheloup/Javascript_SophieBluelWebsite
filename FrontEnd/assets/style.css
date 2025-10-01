@@ -127,7 +127,6 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
 
 /* NAV */
@@ -136,6 +135,10 @@ ul a {
 }
 
 /* FILTER */
+
+.hidden {
+	display: none;
+}
 
 filter {
   display: flex;
@@ -165,6 +168,16 @@ filter .filter-choice:checked + label {
 }
 
 /* GALLERY */
+#headProjets {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* #titleProjets {
+	position: absolute;
+} */
+
 .gallery {
 	width: 100%;
 	display: grid;

@@ -89,3 +89,20 @@ export function ajouterListenerAllFilter (works) {
         })
     };
 };
+
+
+// VERIFICATION TOKEN POUR LE MODE ADMIN
+
+export function modeAdmin (token) {
+    if (token === 'abcd') {
+
+        console.log("Admin !");
+
+        document.getElementById('filterSection').className = "";
+    
+
+    } else {
+
+        console.log("Visiteur");
+    };
+};

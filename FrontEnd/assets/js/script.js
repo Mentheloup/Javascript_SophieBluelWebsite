@@ -1,5 +1,5 @@
 // IMPORT
-import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, ajouterListenerFilterTous, ajouterListenerAllFilter} from "./fonction_metier.js";
+import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, ajouterListenerFilterTous, ajouterListenerAllFilter, modeAdmin} from "./fonction_metier.js";
 
 
 // RECUPERER WORKS
@@ -22,3 +22,9 @@ genererWorks (works);
 
 ajouterListenerFilterTous (works);
 ajouterListenerAllFilter (works);
+
+// VERIFICATION TOKEN POUR LE MODE ADMIN
+
+const token = window.localStorage.getItem("token");
+
+modeAdmin (token);
