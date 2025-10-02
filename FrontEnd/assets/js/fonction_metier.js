@@ -1,3 +1,4 @@
+//CREER FICHIER GET DATA
 //RECUPERER INFO BACK-END
 export async function fetchWorks() {
     const response = await fetch("http://localhost:5678/api/works");

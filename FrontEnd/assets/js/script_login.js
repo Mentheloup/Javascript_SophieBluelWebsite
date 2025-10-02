@@ -2,30 +2,57 @@
 
 
 
-    const login = async () => {
-            await fetch("http://localhost:5678/api/users/login", {
-                method: "POST",
-                headers: { Accept : "application/json", "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    email: document.querySelector(".inputEmail").value,
-                    mot_de_passe: document.querySelector(".inputPassword").value, 
-                })
-        })
-        .then((response)=>{
-            console.log(response);
-            // if (response)
-        })
-        .catch((error) => {
-            console.log(error);
+    // const login = async () => {
+    //         await fetch("http://localhost:5678/api/users/login", {
+    //             method: "POST",
+    //             headers: { Accept : "application/json", "Content-Type": "application/json" },
+    //             body: JSON.stringify({
+    //                 email: document.querySelector(".inputEmail").value,
+    //                 mot_de_passe: document.querySelector(".inputPassword").value, 
+    //             })
+    //     })
+    //     .then((response)=>{
+    //         console.log(response);
+    //         // if (response)
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+
+    // };
+
+    // const formulaireConnexion = document.querySelector(".connexion");
+    // formulaireConnexion.addEventListener("click", (event) => {
+    //     event.preventDefault();
+    //     login();
+    // })
+
+    document.getElementById("login-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("mot-de-passe").value;
+
+    try {
+        const response = await fetch("http://localhost:5678/api/users/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
         });
 
-    };
-
-    const formulaireConnexion = document.querySelector(".connexion");
-    formulaireConnexion.addEventListener("click", (event) => {
-        event.preventDefault();
-        login();
-    })
+        if (response.ok) {
+            const data = await response.json();
+            // Save token to localStorage
+            localStorage.setItem("token", data.token);
+            // Redirect to homepage or dashboard
+            window.location.href = "index.html";
+        } else {
+            alert("Email ou mot de passe incorrect.");
+        }
+    } catch (error) {
+        alert("Erreur lors de la connexion.");
+    }
+});
 
 
 
