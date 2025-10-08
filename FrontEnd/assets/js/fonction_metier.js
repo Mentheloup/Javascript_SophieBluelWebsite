@@ -1,4 +1,5 @@
 //CREER FICHIER GET DATA
+
 //RECUPERER INFO BACK-END
 export async function fetchWorks() {
     const response = await fetch("http://localhost:5678/api/works");
@@ -92,10 +93,10 @@ export function ajouterListenerAllFilter (works) {
 };
 
 
-// VERIFICATION TOKEN POUR LE MODE ADMIN
+// GESTION TOKEN
 
 export function modeAdmin (token) {
-    if (token === 'abcd') {
+    if (token !== null) {
 
         console.log("Admin !");
 
@@ -107,4 +108,20 @@ export function modeAdmin (token) {
 
         console.log("Visiteur");
     };
+};
+
+//GESTION MODAL MODIFY
+export function modalModify () {
+    const buttonOpenModalModify = document.getElementById("modifyButton");
+    const modalModify = document.getElementById("modalModify");
+
+    const buttonCloseModalModify = document.getElementById("closeModifyModal");
+
+    buttonOpenModalModify.addEventListener("click", () => modalModify.showModal());
+    buttonCloseModalModify.addEventListener("click", () => modalModify.close());
+    modalModify.addEventListener('click', (event) => {
+        if (event.target.id !== 'contenuModal') {
+            modalModify.close();
+        }
+    });
 };

@@ -1,5 +1,5 @@
 // IMPORT
-import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, ajouterListenerFilterTous, ajouterListenerAllFilter, modeAdmin} from "./fonction_metier.js";
+import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, ajouterListenerFilterTous, ajouterListenerAllFilter, modeAdmin, modalModify} from "./fonction_metier.js";
 
 
 // RECUPERER WORKS
@@ -28,3 +28,6 @@ ajouterListenerAllFilter (works);
 const token = window.localStorage.getItem("token");
 
 modeAdmin (token);
+
+//GESTION MODAL MODIFY
+modalModify();
