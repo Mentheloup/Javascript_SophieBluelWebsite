@@ -1,33 +1,5 @@
-// connexion();
-
-
-
-    // const login = async () => {
-    //         await fetch("http://localhost:5678/api/users/login", {
-    //             method: "POST",
-    //             headers: { Accept : "application/json", "Content-Type": "application/json" },
-    //             body: JSON.stringify({
-    //                 email: document.querySelector(".inputEmail").value,
-    //                 mot_de_passe: document.querySelector(".inputPassword").value, 
-    //             })
-    //     })
-    //     .then((response)=>{
-    //         console.log(response);
-    //         // if (response)
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-
-    // };
-
-    // const formulaireConnexion = document.querySelector(".connexion");
-    // formulaireConnexion.addEventListener("click", (event) => {
-    //     event.preventDefault();
-    //     login();
-    // })
-
-    document.getElementById("login-form").addEventListener("submit", async function (e) {
+//Gestion connexion
+document.getElementById("login-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const email = document.getElementById("email").value;
@@ -53,6 +25,38 @@
         alert("Erreur lors de la connexion.");
     }
 });
+
+
+
+
+// MARCHE PAS - ERREUR 'CORS'
+
+// connexion();
+
+    // const login = async () => {
+    //         await fetch("http://localhost:5678/api/users/login", {
+    //             method: "POST",
+    //             headers: { Accept : "application/json", "Content-Type": "application/json" },
+    //             body: JSON.stringify({
+    //                 email: document.querySelector(".inputEmail").value,
+    //                 mot_de_passe: document.querySelector(".inputPassword").value, 
+    //             })
+    //     })
+    //     .then((response)=>{
+    //         console.log(response);
+    //         // if (response)
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+
+    // };
+
+    // const formulaireConnexion = document.querySelector(".connexion");
+    // formulaireConnexion.addEventListener("click", (event) => {
+    //     event.preventDefault();
+    //     login();
+    // })
 
 
 
