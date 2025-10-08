@@ -1,5 +1,5 @@
 // IMPORT
-import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, ajouterListenerFilterTous, ajouterListenerAllFilter, modeAdmin, modalModify} from "./fonction_metier.js";
+import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, addListenerFilterTous, addListenerAllFilter, modeAdmin, modalModify} from "./fonction_metier.js";
 
 
 // RECUPERER WORKS
@@ -20,8 +20,8 @@ genererWorks (works);
 
 // AJOUT LISTENER FILTER
 
-ajouterListenerFilterTous (works);
-ajouterListenerAllFilter (works);
+addListenerFilterTous (works);
+addListenerAllFilter (works);
 
 // VERIFICATION TOKEN POUR LE MODE ADMIN
 
