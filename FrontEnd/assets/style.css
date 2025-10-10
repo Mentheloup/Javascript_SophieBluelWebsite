@@ -206,6 +206,7 @@ filter .filter-choice:checked + label {
 	margin-left: 25em;
 }
 
+
 #modifyButton i {
 	margin-right: 7px;
 }
@@ -294,52 +295,77 @@ footer nav ul {
 	color: #B1663C;
 }
 
+
 /* MODAL */
 
-#modalModify{
-	/* display: flex;
-	align-items: center;
-	justify-content: center;
-	position: fixed; */
-	height: 60%;
-	width: 30%;
+/* Modal general */
+.modal {
+  display: none; 
 
-	background-color: white;
+  position: fixed;
+  padding-top: 250px; /* Location of the box */
+  left: 0;
+  top: 0;
 
-	border-radius: 10px;
+  width: 100%; 
+  height: 100%;
+
+  background-color: rgba(0,0,0,0.4);
 }
 
-#modalModify::backdrop {
-	background-color: black;
-	opacity: 30%;
-	width: 100%;
-	height: 100%;
-}
-
-#contenuModal {
+/* Modal Content */
+.modal-content {
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
+	
+	background-color: #ffffff;
+	margin: auto;
+
+	border-radius: 20px;
+
+	padding: 20px;
+
+	width: 30%;
+}
+
+
+
+/* Modal header */
+.modal-header {
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 
-	/* width: 100%;
-	height: 85%; */
-
-	padding: 30px;
+	padding-bottom: 20px;
 }
 
-#contenuModal button {
-	align-self: flex-end;
-	margin-top: 10px;
-	margin-right: 10px;
+/* The Close Button */
+.close {
+	margin-left: auto;
+	color: rgb(0, 0, 0);
 }
 
-#closeModifyModal i {
-	scale: 130%;
+
+/* Modal body */
+.modal-body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding: 2px 16px;
+}
+
+/* Modal footer */
+.modal-footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding-top: 20px;
 }
 
 .greyLine {
-	width: 420px;
+	width: 100%;
 	height: 1px;
 	background-color:lightgray;
 }
@@ -347,4 +373,18 @@ footer nav ul {
 #addPicture {
 	height: 36px;
 	width: 237px;
+
+	border:none;
+}
+
+
+/* Button hover/focus */
+.close:hover,
+.close:focus,
+#addPicture:hover,
+#addPicture:focus,
+#modifyButton:hover,
+#modifyButton:focus {
+  text-decoration: none;
+  cursor: pointer;
 }

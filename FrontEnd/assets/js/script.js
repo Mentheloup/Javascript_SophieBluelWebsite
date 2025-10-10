@@ -30,4 +30,4 @@ const token = window.localStorage.getItem("token");
 modeAdmin (token);
 
 //GESTION MODAL MODIFY
-modalModify();
+modalModify ();
