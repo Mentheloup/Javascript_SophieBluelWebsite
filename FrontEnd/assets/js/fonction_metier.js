@@ -139,3 +139,24 @@ export function modalModify () {
     }
     }
 }
+
+export function galleryModal (works) {
+    // Récupérer le futur parent
+    const parentGalleryModal = document.querySelector("#galeryModify");
+
+    parentGalleryModal.innerHTML += '';
+
+    // Boucle pour constituer le bout d'HTML pour chaque work
+    for (let i = 0; i < works.length; i++) {
+        const work = works[i];
+
+        let newWorkModal = 
+        '<div class="littleFigure">'
+        + '<img src="' + work.imageUrl +'" alt="'+ work.title +'">'
+        + '<button class="deleteButton"><i class=" fa-solid fa-trash-can"></i></button>'
+        + '</div>'
+        ;
+
+        parentGalleryModal.innerHTML += newWorkModal;
+    }
+}

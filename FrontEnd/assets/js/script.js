@@ -1,5 +1,5 @@
 // IMPORT
-import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, addListenerFilterTous, addListenerAllFilter, modeAdmin, modalModify} from "./fonction_metier.js";
+import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, addListenerFilterTous, addListenerAllFilter, modeAdmin, modalModify, galleryModal} from "./fonction_metier.js";
 
 
 // RECUPERER WORKS
@@ -31,3 +31,4 @@ modeAdmin (token);
 
 //GESTION MODAL MODIFY
 modalModify ();
+galleryModal (works);
