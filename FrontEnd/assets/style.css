@@ -99,15 +99,6 @@ button {
 	all: unset;
 }
 
-dialog {
-	border: 0;
-	padding: 0;
-}
-
-dialog input {
-	all: unset;
-}
-
 /* BARRE NAVIGATION */
 nav ul {
 	display: flex;
@@ -250,6 +241,7 @@ filter .filter-choice:checked + label {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+
 #contact label {
 	margin: 2em 0 1em 0;
 }
@@ -258,7 +250,8 @@ filter .filter-choice:checked + label {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"],
+input[type="button"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -302,7 +295,7 @@ footer nav ul {
   display: none; 
 
   position: fixed;
-  padding-top: 250px; /* Location of the box */
+  padding-top: 130px; /* Location of the box */
   left: 0;
   top: 0;
 
@@ -327,7 +320,13 @@ footer nav ul {
 	width: 40%;
 }
 
+/* #modal-content-gallery {
+	display: none;
+} */
 
+#modal-content-add-picture {
+	display: none;
+}
 
 /* Modal header */
 .modal-header {
@@ -360,7 +359,7 @@ footer nav ul {
 	align-content: space-around;
 	justify-content: flex-start;
 
-	gap:40px 15px;
+	gap:40px 18px;
 
 	width: 80%;
 	height: 100%;

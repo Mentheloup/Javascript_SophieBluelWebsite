@@ -47,23 +47,51 @@
 
 			<!-- MODAL MODIFY -->
 			<div id="modalModify" class="modal">
-
+				<!-- CONTENT GALERIE PHOTO -->
 				<div class="modal-content">
-					<div class="modal-header">
-						<span class="close"><i class="fa-solid fa-xmark"></i></span>
-						<h3>Galerie photo</h3>
-					</div>
-					<div class="modal-body">
-						<div id="galeryModify">
+					<div id="modal-content-gallery">
+						<div class="modal-header">
+							<span class="close"><i class="fa-solid fa-xmark"></i></span>
+							<h3>Galerie photo</h3>
+						</div>
+						<div class="modal-body">
+							<div id="galeryModify">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="greyLine"></div>
+							<form>
+								<input id="addPicture" type="button" value="Ajouter une photo">
+							</form>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<div class="greyLine"></div>
-					<form>
-						<input id="addPicture" type="submit" value="Ajouter une photo">
-					</form>
+					<div id="modal-content-add-picture">
+						<div class="modal-footer">
+							<div class="modal-header">
+								<span class="close"><i class="fa-solid fa-xmark"></i></span>
+								<h3>Ajout photo</h3>
+							</div>
+								<div class="modal-body">
+									<form id="add-photo-form" action="#" method="post">
+										<label for="titre">Titre</label>
+										<input type="titre" name="titre" id="titre" required>
+										<label for="categorie">Catégorie</label>
+										<select name="categorie" id="categorie">
+											<option value=""></option>
+											<option value="dog">Dog</option>
+											<option value="cat">Cat</option>
+											<option value="hamster">Hamster</option>
+										</select>
+									</form>
+								</div>
+							<div class="greyLine"></div>
+							<form>
+								<input id="validAddPicture" type="submit" value="Valider">
+							</form>
+						</div>
 					</div>
 				</div>
+				
 			</div>
 
 		</div>

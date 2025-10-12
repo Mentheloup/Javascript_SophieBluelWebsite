@@ -114,13 +114,16 @@ export function modeAdmin (token) {
 
 export function modalModify () {
     // Get the modal
-    var modal = document.getElementById("modalModify");
+    const modal = document.getElementById("modalModify");
 
     // Get the button that opens the modal
-    var modifyButton = document.getElementById("modifyButton");
+    const modifyButton = document.getElementById("modifyButton");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    const span = document.getElementsByClassName("close")[0];
+
+    const modalGallery = document.getElementById("modal-content-gallery");
+    const modalAddPicture = document.getElementById("modal-content-add-picture");
 
     // When the user clicks the button, open the modal 
     modifyButton.onclick = function() {
@@ -136,9 +139,11 @@ export function modalModify () {
     window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        modalGallery.style.display = "block";
+        modalAddPicture.style.display = "none";
     }
     }
-}
+};
 
 export function galleryModal (works) {
     // Récupérer le futur parent
@@ -159,4 +164,23 @@ export function galleryModal (works) {
 
         parentGalleryModal.innerHTML += newWorkModal;
     }
-}
+};
+
+export function addPhoto () {
+    const modal = document.getElementById("modalModify");
+    const modalGallery = document.getElementById("modal-content-gallery");
+    const modalAddPicture = document.getElementById("modal-content-add-picture");
+    const addPictureButton = document.getElementById("addPicture");
+    const span = document.getElementsByClassName("close")[1];
+
+    addPictureButton.onclick = function() {
+        modalGallery.style.display = "none";
+        modalAddPicture.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+        modalGallery.style.display = "block";
+        modalAddPicture.style.display = "none";
+    }
+};
