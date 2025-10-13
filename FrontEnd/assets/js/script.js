@@ -1,6 +1,6 @@
 // IMPORT
-import {fetchWorks, genererListeFiltres, genererBoutonsFiltres, genererWorks, addListenerFilterTous, addListenerAllFilter, modeAdmin, modalModify, galleryModal, addPhoto} from "./fonction_metier.js";
-
+import {genererBoutonsFiltres, addListenerFilterTous, addListenerAllFilter, modeAdmin, modalModify, galleryModal, addPhoto, genererCategories} from "./fonction_metier.js";
+import {fetchWorks, genererListeFiltres, genererWorks} from "./fonction_get_data.js";
 
 // RECUPERER WORKS
 const serveur = "http://localhost:5678/api/";
@@ -33,3 +33,4 @@ modeAdmin (token);
 modalModify ();
 galleryModal (works);
 addPhoto ();
+genererCategories (listeFiltres);

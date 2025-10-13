@@ -30,7 +30,7 @@ export function genererWorks (works) {
     }
 }
 
-// BUTTONS
+// CATEGORIES
 export function genererListeFiltres (listeFiltres, works) {
 
     listeFiltres.add("Tous");
@@ -41,6 +41,7 @@ export function genererListeFiltres (listeFiltres, works) {
 
 }
 
+// BUTTONS
 export function genererBoutonsFiltres (listeFiltres) {
 
     //Sous quelle balise
@@ -184,3 +185,22 @@ export function addPhoto () {
         modalAddPicture.style.display = "none";
     }
 };
+
+export function genererCategories (listeFiltres) {
+
+    console.log('Hello');
+    // Récupérer le futur parent
+    const parentGallery = document.querySelector("#categorie");
+
+    parentGallery.innerHTML += '<option value=""></option>' ;
+
+    listeFiltres.delete('Tous');
+
+    // Boucle pour constituer le bout d'HTML pour chaque work
+    for (const categorie of listeFiltres) {
+        console.log(categorie);
+        let newCategorie = '<option value="' + categorie + '">' + categorie + '</option>';
+
+        parentGallery.innerHTML += newCategorie;
+    }
+}
