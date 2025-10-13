@@ -1,6 +1,6 @@
 // IMPORT
-import {genererBoutonsFiltres, addListenerFilterTous, addListenerAllFilter, modeAdmin, openCloseModalModify, generateGalleryModal, switchModalAddPhoto, generateCategories} from "./fonction_metier.js";
-import {fetchWorks, genererListeFiltres, genererWorks} from "./fonction_get_data.js";
+import {generateBoutonsFiltres, generateWorks, addListenerFilterTous, addListenerAllFilter, modeAdmin, openCloseModalModify, generateGalleryModal, switchModalAddPhoto, generateCategories} from "./fonction_metier.js";
+import {fetchWorks, generateListeFiltres} from "./fonction_get_data.js";
 
 // RECUPERER WORKS
 const serveur = "http://localhost:5678/api/";
@@ -10,13 +10,13 @@ const works = await fetchWorks();
 //GENERER BOUTONS FILTRES
 const listeFiltres = new Set();
 
-genererListeFiltres (listeFiltres, works);
-genererBoutonsFiltres (listeFiltres);
+generateListeFiltres (listeFiltres, works);
+generateBoutonsFiltres (listeFiltres);
 
 
 // GENERER WORK A L'OUVERTURE DE LA PAGE
 
-genererWorks (works);
+generateWorks (works);
 
 // AJOUT LISTENER FILTER
 

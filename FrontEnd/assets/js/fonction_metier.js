@@ -1,15 +1,6 @@
-//CREER FICHIER GET DATA
-
-//RECUPERER INFO BACK-END
-export async function fetchWorks() {
-    const response = await fetch("http://localhost:5678/api/works");
-    const works = await response.json();
-    return works;
-}
-
 // WORKS
 
-export function genererWorks (works) {
+export function generateWorks (works) {
     // Récupérer le futur parent
     const parentGallery = document.querySelector(".gallery");
 
@@ -30,19 +21,8 @@ export function genererWorks (works) {
     }
 }
 
-// CATEGORIES
-export function genererListeFiltres (listeFiltres, works) {
-
-    listeFiltres.add("Tous");
-
-    for (let i = 0; i < works.length; i++) {
-        listeFiltres.add(works[i].category.name);
-    }
-
-}
-
 // BUTTONS
-export function genererBoutonsFiltres (listeFiltres) {
+export function generateBoutonsFiltres (listeFiltres) {
 
     //Sous quelle balise
     const baliseFilter = document.querySelector("filter");
@@ -77,7 +57,7 @@ export function addListenerFilterTous (works) {
         document.querySelector(".gallery").innerHTML = '';
     
         // On en génère de nouveau, avec ou sans filtre
-        genererWorks(works);
+        generateWorks(works);
     });
 };
 
@@ -88,7 +68,7 @@ export function addListenerAllFilter (works) {
     for (const filter of allFilters) {
         filter.addEventListener("click", function () {
             document.querySelector(".gallery").innerHTML = '';
-            genererWorks(works.filter(work => work.category.name === this.value));
+            generateWorks(works.filter(work => work.category.name === this.value));
         })
     };
 };

@@ -5,31 +5,8 @@ export async function fetchWorks() {
     return works;
 }
 
-// WORKS
-
-export function genererWorks (works) {
-    // Récupérer le futur parent
-    const parentGallery = document.querySelector(".gallery");
-
-    parentGallery.innerHTML += '';
-
-    // Boucle pour constituer le bout d'HTML pour chaque work
-    for (let i = 0; i < works.length; i++) {
-        const work = works[i];
-
-        let newWork = 
-        '<figure>'
-        + '<img src="' + work.imageUrl +'" alt="'+ work.title +'">'
-        + '<figcaption>' + work.title + '</figcaption>'
-        + '</figure>'
-        ;
-
-        parentGallery.innerHTML += newWork;
-    }
-}
-
 // CATEGORIES
-export function genererListeFiltres (listeFiltres, works) {
+export function generateListeFiltres (listeFiltres, works) {
 
     listeFiltres.add("Tous");
 
