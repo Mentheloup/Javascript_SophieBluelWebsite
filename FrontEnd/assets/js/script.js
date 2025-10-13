@@ -1,5 +1,5 @@
 // IMPORT
-import {genererBoutonsFiltres, addListenerFilterTous, addListenerAllFilter, modeAdmin, modalModify, galleryModal, addPhoto, genererCategories} from "./fonction_metier.js";
+import {genererBoutonsFiltres, addListenerFilterTous, addListenerAllFilter, modeAdmin, openCloseModalModify, generateGalleryModal, switchModalAddPhoto, generateCategories} from "./fonction_metier.js";
 import {fetchWorks, genererListeFiltres, genererWorks} from "./fonction_get_data.js";
 
 // RECUPERER WORKS
@@ -30,7 +30,7 @@ const token = window.localStorage.getItem("token");
 modeAdmin (token);
 
 //GESTION MODAL MODIFY
-modalModify ();
-galleryModal (works);
-addPhoto ();
-genererCategories (listeFiltres);
+openCloseModalModify ();
+generateGalleryModal (works);
+switchModalAddPhoto ();
+generateCategories (listeFiltres);

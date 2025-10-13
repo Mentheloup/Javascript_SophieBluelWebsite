@@ -113,7 +113,7 @@ export function modeAdmin (token) {
 
 //GESTION MODAL MODIFY
 
-export function modalModify () {
+export function openCloseModalModify () {
     // Get the modal
     const modal = document.getElementById("modalModify");
 
@@ -146,7 +146,7 @@ export function modalModify () {
     }
 };
 
-export function galleryModal (works) {
+export function generateGalleryModal (works) {
     // Récupérer le futur parent
     const parentGalleryModal = document.querySelector("#galeryModify");
 
@@ -167,7 +167,7 @@ export function galleryModal (works) {
     }
 };
 
-export function addPhoto () {
+export function switchModalAddPhoto () {
     const modal = document.getElementById("modalModify");
     const modalGallery = document.getElementById("modal-content-gallery");
     const modalAddPicture = document.getElementById("modal-content-add-picture");
@@ -186,19 +186,19 @@ export function addPhoto () {
     }
 };
 
-export function genererCategories (listeFiltres) {
-
-    console.log('Hello');
+export function generateCategories (listeFiltres) {
+    
     // Récupérer le futur parent
     const parentGallery = document.querySelector("#categorie");
 
     parentGallery.innerHTML += '<option value=""></option>' ;
 
+    //Remove useless categorie
     listeFiltres.delete('Tous');
 
     // Boucle pour constituer le bout d'HTML pour chaque work
     for (const categorie of listeFiltres) {
-        console.log(categorie);
+
         let newCategorie = '<option value="' + categorie + '">' + categorie + '</option>';
 
         parentGallery.innerHTML += newCategorie;
