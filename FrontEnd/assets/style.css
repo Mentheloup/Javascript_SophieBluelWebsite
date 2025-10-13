@@ -394,7 +394,8 @@ footer nav ul {
 	background-color:lightgray;
 }
 
-#addPicture {
+#addPicture,
+#validAddPicture {
 	height: 36px;
 	width: 237px;
 
@@ -413,7 +414,7 @@ footer nav ul {
 	width: 100%;
 }
 
-.back, .close {
+#back, .close {
 	scale: 150%;
 }
 
@@ -422,6 +423,12 @@ footer nav ul {
 	width: 60%;
 	display: flex;
 	flex-direction: column;
+}
+
+#add-photo-form label,
+#add-photo-form input,
+#add-photo-form select {
+	margin: 15px 0px 0px 0px;
 }
 
 #add-photo-form input,
@@ -444,7 +451,9 @@ footer nav ul {
 #modifyButton:hover,
 #modifyButton:focus,
 .deleteButton:hover,
-.deleteButton:focus {
+.deleteButton:focus,
+#back:hover,
+#back:focus {
   text-decoration: none;
   cursor: pointer;
 }

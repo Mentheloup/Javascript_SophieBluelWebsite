@@ -152,14 +152,24 @@ export function switchModalAddPhoto () {
     const modalGallery = document.getElementById("modal-content-gallery");
     const modalAddPicture = document.getElementById("modal-content-add-picture");
     const addPictureButton = document.getElementById("addPicture");
-    const span = document.getElementsByClassName("close")[1];
+    const spanClose = document.getElementsByClassName("close")[1];
+    const spanBack = document.getElementById("back");
+    
 
+    // Passer au modal-content AddPhoto
     addPictureButton.onclick = function() {
         modalGallery.style.display = "none";
         modalAddPicture.style.display = "block";
     }
 
-    span.onclick = function() {
+    //Revenir au modal-content Gallery-Add-Photo
+    spanBack.onclick = function() {
+        modalGallery.style.display = "block";
+        modalAddPicture.style.display = "none";
+    }
+
+    //Fermer la modal et reset modal-content
+    spanClose.onclick = function() {
         modal.style.display = "none";
         modalGallery.style.display = "block";
         modalAddPicture.style.display = "none";
