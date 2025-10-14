@@ -86,7 +86,6 @@ export function modeAdmin (token) {
     
 
     } else {
-
         console.log("Visiteur");
     };
 };
@@ -139,7 +138,7 @@ export function generateGalleryModal (works) {
         let newWorkModal = 
         '<div class="littleFigure">'
         + '<img src="' + work.imageUrl +'" alt="'+ work.title +'">'
-        + '<button class="deleteButton"><i class=" fa-solid fa-trash-can"></i></button>'
+        + '<button id="' + work.id + '"class="deleteButton"><i class=" fa-solid fa-trash-can"></i></button>'
         + '</div>'
         ;
 
@@ -192,5 +191,64 @@ export function generateCategories (listeFiltres) {
         let newCategorie = '<option value="' + categorie + '">' + categorie + '</option>';
 
         parentGallery.innerHTML += newCategorie;
+    }
+}
+
+export function addListenerDeleteWork () {
+    const allDeleteButtons = document.querySelectorAll(".deleteButton");
+    const token = window.localStorage.getItem("token");
+
+    for (const button of allDeleteButtons) {
+        button.addEventListener("click", function () {
+            
+            console.log("On demande de supprimer.")
+            const id = button.id;
+            requestDeleteWork(id, token);
+            
+        })
+    };
+}
+
+export async function requestDeleteWork(id, token) {
+
+    console.log(id);
+    console.log(token);
+
+    try
+    {
+        const requestDelete = await fetch("http://localhost:5678/api/works/" + id,
+            {
+            method: "DELETE",
+            headers: { 
+                "Accept" : "*/*",
+                "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc2MDQ1ODQ4OCwiZXhwIjoxNzYwNTQ0ODg4fQ.AmtRtd_9D46j3FTGc2ehHlYd24F3AjLo3gU0HDQ77hk`
+                }
+            }
+        );
+        
+        let response;
+        // Si le serveur renvoie du contenu
+        if (requestDelete.status !== 204) {
+            response = await requestDelete.json();
+            console.log(response);
+        }
+
+        console.log(requestDelete);
+        console.log(response);
+
+        if (requestDelete.status === 204) {
+            console.log("C'est supprimé !")
+
+            //Supprimer l'élément dans l'HTML, aka le parent du bouton
+            const workDeleted = document.getElementById(id);
+            workDeleted.parentElement.remove();
+        } else {
+            console.log("C'est pas supprimé !")
+        }
+
+    }
+
+    catch (error) {
+        alert("Erreur lors de la suppression d'image.");
     }
 }

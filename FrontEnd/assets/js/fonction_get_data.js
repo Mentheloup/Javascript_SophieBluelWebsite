@@ -15,3 +15,19 @@ export function generateListeFiltres (listeFiltres, works) {
     }
 
 }
+
+// export async function requestDeleteWork(id, token) {
+
+//     const requestDelete = await fetch("http://localhost:5678/api/works/{" + id + "}",
+//         {
+//         method: "DELETE",
+//         headers: { 
+//             "Accept" : "*/*",
+//             "Authorization": `Bearer ${token}`
+//             }
+//         }
+//     );
+    
+//     const response = await requestDelete.json();
+//     console.log(response);
+// }

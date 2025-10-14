@@ -1,5 +1,5 @@
 // IMPORT
-import {generateBoutonsFiltres, generateWorks, addListenerFilterTous, addListenerAllFilter, modeAdmin, openCloseModalModify, generateGalleryModal, switchModalAddPhoto, generateCategories} from "./fonction_metier.js";
+import {generateBoutonsFiltres, generateWorks, addListenerFilterTous, addListenerAllFilter, modeAdmin, openCloseModalModify, generateGalleryModal, switchModalAddPhoto, generateCategories, requestDeleteWork, addListenerDeleteWork} from "./fonction_metier.js";
 import {fetchWorks, generateListeFiltres} from "./fonction_get_data.js";
 
 // RECUPERER WORKS
@@ -34,3 +34,4 @@ openCloseModalModify ();
 generateGalleryModal (works);
 switchModalAddPhoto ();
 generateCategories (listeFiltres);
+addListenerDeleteWork();
