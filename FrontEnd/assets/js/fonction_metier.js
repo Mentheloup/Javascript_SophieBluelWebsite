@@ -201,58 +201,71 @@ export function addListenerDeleteWork (works) {
     for (const button of allDeleteButtons) {
         button.addEventListener("click", function () {
             
-            console.log("On demande de supprimer.")
-            const id = button.id;
-            requestDeleteWork(id, token, works);
+            let confirmation = confirm("Êtes-vous sûr de vouloir supprimer ?");
+
+            if (confirmation === true) {
+                console.log("On demande de supprimer.")
+                const id = button.id;
+                requestDeleteWork(id, token, works);
+            };
+
         })
     };
 }
 
-export async function requestDeleteWork(id, token, works) {
+export function requestDeleteWork(id, token, works) {
 
     console.log(id);
     console.log(token);
 
-    try
-    {
-        const requestDelete = await fetch("http://localhost:5678/api/works/" + id,
+    // try
+    // {
+        fetch("http://localhost:5678/api/works/" + id,
             {
             method: "DELETE",
             headers: { 
                 "Accept" : "*/*",
                 "Authorization": `Bearer ` + token
                 }
-            }
-        );
+            }).then (() => {
+                console.log("Réussi.");
+                return generateWorks (works);
+            }).then ((data) => {
+                console.log(data);
+                const workDeleted = document.getElementById(id);
+                workDeleted.parentElement.remove();
+            }).catch((error) => {
+                console.log(error);
+            });
         
         let response;
 
         // Si le serveur renvoie du contenu
-        if (requestDelete.status !== 204) {
-            response = await requestDelete.json();
-            console.log(response);
-        }
+        // if (requestDelete.status !== 204) {
+        //     response = await requestDelete.json();
+        //     console.log(response);
+        // }
 
-        console.log(requestDelete);
-        console.log(response);
+    //     console.log(requestDelete);
+    //     console.log(response);
 
-        if (requestDelete.status === 204) {
-            console.log("C'est supprimé !")
+    //     if (requestDelete.status === 204) {
+    //         console.log("C'est supprimé !")
 
-            //Supprimer l'élément dans l'HTML, aka le parent du bouton
-            const workDeleted = document.getElementById(id);
-            workDeleted.parentElement.remove();
+    //         //Supprimer l'élément dans l'HTML, aka le parent du bouton
+    //         const workDeleted = document.getElementById(id);
+    //         workDeleted.parentElement.remove();
             
-            generateWorks (works);
-        } else {
-            console.log("C'est pas supprimé !")
-            localStorage.clear();
-            window.location.href = "login.html";
-        }
+    //         generateWorks (works);
+    //     } else {
+    //         console.log("C'est pas supprimé !")
+    //         localStorage.clear();
+    //         window.location.href = "login.html";
+    //     }
 
-    }
+    // }
 
-    catch (error) {
-        alert("Erreur lors de la suppression d'image.");
-    }
+    // catch (error) {
+    //     alert("Erreur lors de la suppression d'image.");
+    // }
 }
