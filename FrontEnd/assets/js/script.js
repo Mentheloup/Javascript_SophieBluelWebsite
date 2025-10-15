@@ -34,4 +34,5 @@ openCloseModalModify ();
 generateGalleryModal (works);
 switchModalAddPhoto ();
 generateCategories (listeFiltres);
-addListenerDeleteWork();
+addListenerDeleteWork(works);
+

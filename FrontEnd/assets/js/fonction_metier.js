@@ -3,7 +3,7 @@
 export function generateWorks (works) {
     // Récupérer le futur parent
     const parentGallery = document.querySelector(".gallery");
-
+    console.log("Recreer la galerie");
     parentGallery.innerHTML += '';
 
     // Boucle pour constituer le bout d'HTML pour chaque work
@@ -194,7 +194,7 @@ export function generateCategories (listeFiltres) {
     }
 }
 
-export function addListenerDeleteWork () {
+export function addListenerDeleteWork (works) {
     const allDeleteButtons = document.querySelectorAll(".deleteButton");
     const token = window.localStorage.getItem("token");
 
@@ -203,13 +203,12 @@ export function addListenerDeleteWork () {
             
             console.log("On demande de supprimer.")
             const id = button.id;
-            requestDeleteWork(id, token);
-            
+            requestDeleteWork(id, token, works);
         })
     };
 }
 
-export async function requestDeleteWork(id, token) {
+export async function requestDeleteWork(id, token, works) {
 
     console.log(id);
     console.log(token);
@@ -221,12 +220,13 @@ export async function requestDeleteWork(id, token) {
             method: "DELETE",
             headers: { 
                 "Accept" : "*/*",
-                "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc2MDQ1ODQ4OCwiZXhwIjoxNzYwNTQ0ODg4fQ.AmtRtd_9D46j3FTGc2ehHlYd24F3AjLo3gU0HDQ77hk`
+                "Authorization": `Bearer ` + token
                 }
             }
         );
         
         let response;
+
         // Si le serveur renvoie du contenu
         if (requestDelete.status !== 204) {
             response = await requestDelete.json();
@@ -242,8 +242,12 @@ export async function requestDeleteWork(id, token) {
             //Supprimer l'élément dans l'HTML, aka le parent du bouton
             const workDeleted = document.getElementById(id);
             workDeleted.parentElement.remove();
+            
+            generateWorks (works);
         } else {
             console.log("C'est pas supprimé !")
+            localStorage.clear();
+            window.location.href = "login.html";
         }
 
     }
