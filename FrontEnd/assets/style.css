@@ -431,6 +431,12 @@ footer nav ul {
 	background-color: #E8F1F6;
 }
 
+#sectionAddPicture img {
+	max-height: 200px;
+	max-width: 420px;
+	object-fit: contain;
+}
+
 input[type="file"]{
 	display: none;
 }

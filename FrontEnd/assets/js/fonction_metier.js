@@ -269,3 +269,28 @@ export function requestDeleteWork(id, token, works) {
     //     alert("Erreur lors de la suppression d'image.");
     // }
 }
+
+export function checkFormatSizeFile () {
+
+    document.getElementById('inputAddPictureFile').addEventListener('change', function (event) {
+        // Récupérer le fichier
+        const file = event.target.files[0];
+
+        // Définir taille maximale : ici 4 Mo
+        const fileMaxSize = 4 * 1024 * 1024;
+
+        // Définir types de fichier autorisés : ici PNG et JPG
+        const fileTypeAutorised = ['image/jpeg', 'image/png'];
+
+        if (file.size > fileMaxSize) {
+            alert("L'image ne doit pas dépasser 4 Mo.");
+        } else if (!fileTypeAutorised.includes(file.type)) {
+            alert("L'image doit être au format JPG ou PNG.");
+        } else {
+            alert("Image téléchargée.");
+            //A compléter avec la modification HTML qui fait apparaître l'image            
+        }
+
+    });
+
+}
