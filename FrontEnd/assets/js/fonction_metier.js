@@ -3,7 +3,6 @@
 export function generateWorks (works) {
     // Récupérer le futur parent
     const parentGallery = document.querySelector(".gallery");
-    console.log("Recreer la galerie");
     parentGallery.innerHTML += '';
 
     // Boucle pour constituer le bout d'HTML pour chaque work
@@ -287,10 +286,34 @@ export function checkFormatSizeFile () {
         } else if (!fileTypeAutorised.includes(file.type)) {
             alert("L'image doit être au format JPG ou PNG.");
         } else {
-            alert("Image téléchargée.");
-            //A compléter avec la modification HTML qui fait apparaître l'image            
+            alert("Image téléchargée.");               
         }
-
     });
+
+}
+
+export function replacePlaceHolder () {
+    // Remplacer le placeholder par l'image
+    const sectionAddPicture = document.querySelector('#sectionAddPicture');
+    const fileInput = document.getElementById('inputAddPictureFile');
+
+    fileInput.addEventListener ("change", previewFile);
+
+    function previewFile () {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", () => {
+        
+            let newFile = '<img src="' + reader.result +'" alt="Image téléchargée">';
+
+            sectionAddPicture.innerHTML = "";
+            sectionAddPicture.innerHTML += newFile;
+        });
+
+        if(file) {
+            reader.readAsDataURL(file);
+        }
+    }
 
 }
