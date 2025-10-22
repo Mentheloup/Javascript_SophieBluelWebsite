@@ -75,25 +75,27 @@
 						</div>
 						<div class="modal-body">
 							<div id="sectionAddPicture">
-								<i class="fa-regular fa-image"></i>
-								<form>
-									<label id="addPictureFile" for="inputAddPictureFile">+ Ajouter photo</label>
-									<input id="inputAddPictureFile" type="file" value="+ Ajouter photo" accept="image/png, image/jpeg">
-								</form>
-								<p id="formatPicture">jpg, png : 4mo max</p>
+								<div id="placeholderPictureFile" hidden>
+									<i class="fa-regular fa-image"></i>
+									<form>
+										<label id="addPictureFile" for="inputAddPictureFile">+ Ajouter photo</label>
+										<input id="inputAddPictureFile" type="file" value="+ Ajouter photo" accept="image/png, image/jpeg" required>
+									</form>
+									<p id="formatPicture">jpg, png : 4mo max</p>
+								</div>
 							</div>
 							<form id="add-photo-form" action="#" method="post">
 								<label for="titre">Titre</label>
 								<input type="titre" name="titre" id="titre" required>
 								<label for="categorie">Catégorie</label>
-								<select name="categorie" id="categorie">
+								<select name="categorie" id="categorie" required>
 								</select>
 							</form>
 						</div>
 						<div class="modal-footer">
 							<div class="greyLine"></div>
 							<form>
-								<input id="validAddPicture" type="submit" value="Valider">
+								<input id="validAddPicture" type="submit" value="Valider" disabled>
 							</form>
 						</div>
 					</div>

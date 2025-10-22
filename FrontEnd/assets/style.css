@@ -420,7 +420,8 @@ footer nav ul {
 
 /* MODAL BODY ADD PICTURE */
 
-#sectionAddPicture {
+#sectionAddPicture,
+#placeholderPictureFile {
 	width: 60%;
 	display: flex;
 	flex-direction: column;
@@ -498,6 +499,10 @@ input[type="file"]{
 	background-color: white;
 }
 
+#validAddPicture:disabled {
+ 	background-color: #A7A7A7 ;
+}
+
 /* Button hover/focus */
 .close:hover,
 .close:focus,
@@ -510,7 +515,9 @@ input[type="file"]{
 #back:hover,
 #back:focus,
 #addPictureFile:hover,
-#addPictureFile:focus {
+#addPictureFile:focus,
+#validAddPicture:hover,
+#validAddPicture:focus {
   text-decoration: none;
   cursor: pointer;
 }

@@ -37,3 +37,4 @@ generateCategories (listeFiltres);
 addListenerDeleteWork(works);
 checkFormatSizeFile ();
 replacePlaceHolder ();
+// canSubmitNewWork ();

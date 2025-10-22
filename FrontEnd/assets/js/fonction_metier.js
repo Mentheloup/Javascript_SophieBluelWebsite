@@ -296,6 +296,7 @@ export function replacePlaceHolder () {
     // Remplacer le placeholder par l'image
     const sectionAddPicture = document.querySelector('#sectionAddPicture');
     const fileInput = document.getElementById('inputAddPictureFile');
+    // const placeHolder = document.querySelector('#placeholderPictureFile');
 
     fileInput.addEventListener ("change", previewFile);
 
@@ -305,9 +306,10 @@ export function replacePlaceHolder () {
 
         reader.addEventListener("load", () => {
         
-            let newFile = '<img src="' + reader.result +'" alt="Image téléchargée">';
+            let newFile = '<img id="newPictureFile" src="' + reader.result +'" alt="Image téléchargée">';
 
-            sectionAddPicture.innerHTML = "";
+            sectionAddPicture.innerHTML = '';
+            // placeHolder.display = 'none';
             sectionAddPicture.innerHTML += newFile;
         });
 
@@ -317,3 +319,20 @@ export function replacePlaceHolder () {
     }
 
 }
+
+// export function canSubmitNewWork () {
+//     // Les inputs
+//     const inputCategorie = document.getElementById('categorie');
+//     const inputTitre = document.getElementById('titre');
+//     const inputPicture = document.getElementById('newPictureFile');
+
+//     //Le bouton de submit
+//     const submitButton = document.getElementById('validAddPicture');
+
+//     submitButton.addEventListener('click', function (event) {
+//        if ((inputCategorie != '') && (inputTitre != null) && (inputPicture)) {
+//         submitButton.disabled = false;
+//         } 
+//     });
+
+// }
