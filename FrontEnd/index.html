@@ -66,38 +66,40 @@
 						</div>
 					</div>
 					<div id="modal-content-add-picture">
-						<div class="modal-header">
-							<div id="arrow-and-cross">
-								<span id="back"><i class="fa-solid fa-arrow-left"></i></span>
-								<span class="close"><i class="fa-solid fa-xmark"></i></span>
-							</div>
-							<h3>Ajout photo</h3>
-						</div>
-						<div class="modal-body">
-							<div id="sectionAddPicture">
-								<div id="placeholderPictureFile" hidden>
-									<i class="fa-regular fa-image"></i>
-									<form>
-										<label id="addPictureFile" for="inputAddPictureFile">+ Ajouter photo</label>
-										<input id="inputAddPictureFile" type="file" value="+ Ajouter photo" accept="image/png, image/jpeg" required>
-									</form>
-									<p id="formatPicture">jpg, png : 4mo max</p>
+						<form id="formAddPictureFile">
+							<div class="modal-header">
+								<div id="arrow-and-cross">
+									<span id="back"><i class="fa-solid fa-arrow-left"></i></span>
+									<span class="close"><i class="fa-solid fa-xmark"></i></span>
 								</div>
+								<h3>Ajout photo</h3>
 							</div>
-							<form id="add-photo-form" action="#" method="post">
-								<label for="titre">Titre</label>
-								<input type="titre" name="titre" id="titre" required>
-								<label for="categorie">Catégorie</label>
-								<select name="categorie" id="categorie" required>
-								</select>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<div class="greyLine"></div>
-							<form>
-								<input id="validAddPicture" type="submit" value="Valider" disabled>
-							</form>
-						</div>
+							<div class="modal-body">
+								<div id="sectionAddPicture">
+									<div id="placeholderPictureFile" hidden>
+										<i class="fa-regular fa-image"></i>
+										
+											<label id="addPictureFile" for="inputAddPictureFile">+ Ajouter photo</label>
+											<input id="inputAddPictureFile" type="file" value="+ Ajouter photo"  required>
+										
+										<p id="formatPicture">jpg, png : 4mo max</p>
+									</div>
+								</div>
+								
+									<label for="titre">Titre</label>
+									<input type="titre" name="titre" id="titre" required>
+									<label for="categorie">Catégorie</label>
+									<select name="categorie" id="categorie" required>
+									</select>
+								
+							</div>
+							<div class="modal-footer">
+								<div class="greyLine"></div>
+								
+									<input id="validAddPicture" type="submit" value="Valider" >
+								
+							</div>
+						</form>
 					</div>
 				</div>
 				

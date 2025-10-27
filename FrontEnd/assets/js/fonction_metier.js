@@ -1,9 +1,11 @@
+import { fetchWorks } from "./fonction_get_data.js";
+
 // WORKS
 
 export function generateWorks (works) {
     // Récupérer le futur parent
     const parentGallery = document.querySelector(".gallery");
-    parentGallery.innerHTML += '';
+    parentGallery.innerHTML = '';
 
     // Boucle pour constituer le bout d'HTML pour chaque work
     for (let i = 0; i < works.length; i++) {
@@ -128,7 +130,7 @@ export function generateGalleryModal (works) {
     // Récupérer le futur parent
     const parentGalleryModal = document.querySelector("#galeryModify");
 
-    parentGalleryModal.innerHTML += '';
+    parentGalleryModal.innerHTML = '';
 
     // Boucle pour constituer le bout d'HTML pour chaque work
     for (let i = 0; i < works.length; i++) {
@@ -212,85 +214,76 @@ export function addListenerDeleteWork (works) {
     };
 }
 
-export function requestDeleteWork(id, token, works) {
+export async function requestDeleteWork(id, token, works) {
 
-    console.log(id);
-    console.log(token);
+    console.log("Suppression du work ID:", id);
+    console.log("Token:", token);
 
-    // try
-    // {
-        fetch("http://localhost:5678/api/works/" + id,
-            {
+    try {
+        const response = await fetch("http://localhost:5678/api/works/" + id, {
             method: "DELETE",
-            headers: { 
-                "Accept" : "*/*",
-                "Authorization": `Bearer ` + token
-                }
-            }).then (() => {
-                console.log("Réussi.");
-                return generateWorks (works);
-            }).then ((data) => {
-                console.log(data);
-                const workDeleted = document.getElementById(id);
-                workDeleted.parentElement.remove();
-            }).catch((error) => {
-                console.log(error);
-            });
-        
-        let response;
+            headers: {
+                "Accept": "*/*",
+                "Authorization": `Bearer ${token}`
+            }
+        });
 
-        // Si le serveur renvoie du contenu
-        // if (requestDelete.status !== 204) {
-        //     response = await requestDelete.json();
-        //     console.log(response);
-        // }
+        if (response.status === 204) {
+            console.log("Work supprimé avec succès !");
 
-    //     console.log(requestDelete);
-    //     console.log(response);
+            // Refetch les données depuis l'API
+            const updatedWorks = await fetchWorks();
 
-    //     if (requestDelete.status === 204) {
-    //         console.log("C'est supprimé !")
+            // Régénérer la galerie principale
+            generateWorks(updatedWorks);
 
-    //         //Supprimer l'élément dans l'HTML, aka le parent du bouton
-    //         const workDeleted = document.getElementById(id);
-    //         workDeleted.parentElement.remove();
-            
-    //         generateWorks (works);
-    //     } else {
-    //         console.log("C'est pas supprimé !")
-    //         localStorage.clear();
-    //         window.location.href = "login.html";
-    //     }
+            // Régénérer la galerie modale
+            generateGalleryModal(updatedWorks);
 
-    // }
+            // Re-ajouter les listeners pour les nouveaux boutons de suppression
+            addListenerDeleteWork();
 
-    // catch (error) {
-    //     alert("Erreur lors de la suppression d'image.");
-    // }
-}
+            console.log("DOM réactualisé !");
 
-export function checkFormatSizeFile () {
-
-    document.getElementById('inputAddPictureFile').addEventListener('change', function (event) {
-        // Récupérer le fichier
-        const file = event.target.files[0];
-
-        // Définir taille maximale : ici 4 Mo
-        const fileMaxSize = 4 * 1024 * 1024;
-
-        // Définir types de fichier autorisés : ici PNG et JPG
-        const fileTypeAutorised = ['image/jpeg', 'image/png'];
-
-        if (file.size > fileMaxSize) {
-            alert("L'image ne doit pas dépasser 4 Mo.");
-        } else if (!fileTypeAutorised.includes(file.type)) {
-            alert("L'image doit être au format JPG ou PNG.");
+        } else if (response.status === 401) {
+            console.log("Token invalide, redirection vers login");
+            localStorage.clear();
+            window.location.href = "login.html";
         } else {
-            alert("Image téléchargée.");               
+            throw new Error(`Erreur HTTP: ${response.status}`);
         }
-    });
 
+    } catch (error) {
+        console.error("Erreur lors de la suppression:", error);
+        alert("Erreur lors de la suppression de l'image. Veuillez réessayer.");
+    }
 }
+
+// export function checkFormatSizeFile () {
+
+//     document.getElementById('inputAddPictureFile').addEventListener('change', function (event) {
+
+      
+
+//         // // Récupérer le fichier
+//         // const file = event.target.files[0];
+
+//         // // Définir taille maximale : ici 4 Mo
+//         // const fileMaxSize = 4 * 1024 * 1024;
+
+//         // // Définir types de fichier autorisés : ici PNG et JPG
+//         // const fileTypeAutorised = ['image/jpeg', 'image/png'];
+
+//         // if (file.size > fileMaxSize) {
+//         //     alert("L'image ne doit pas dépasser 4 Mo.");
+//         // } else if (!fileTypeAutorised.includes(file.type)) {
+//         //     alert("L'image doit être au format JPG ou PNG.");
+//         // } else {
+//         //     replacePlaceHolder ();               
+//         // }
+//     });
+
+// }
 
 export function replacePlaceHolder () {
     // Remplacer le placeholder par l'image
@@ -317,6 +310,62 @@ export function replacePlaceHolder () {
             reader.readAsDataURL(file);
         }
     }
+
+}
+
+export function saveWork (file, categorie, titre, token) {
+
+}
+
+export function addListenerInput () {
+    const inputCategorie = document.getElementById('categorie');
+    const inputTitre = document.getElementById('titre');
+    const inputPicture = document.getElementById('inputAddPictureFile');
+    const submitButton = document.getElementById('validAddPicture');
+    const formAddPictureFile = document.getElementById('formAddPictureFile');
+    const sectionAddPicture = document.querySelector('#sectionAddPicture');
+    const fileMaxSize = 4 * 1024 * 1024;
+
+    submitButton.disabled = true;
+
+    const validForm = () => {
+        console.log('Valid form')
+        const file = inputPicture.files[0];
+        const titre = inputTitre.value.trim();
+        const categorie = inputCategorie.value;
+
+        if (!file || !titre || !categorie) {
+            submitButton.disabled = true;
+            return;
+        }
+
+        const validType = ['image/jpeg', 'image/png'];
+        console.log(file);
+        
+        if (!validType.includes(file.type)) {
+            console.log('type');
+            alert("L'image doit être au format JPG ou PNG.");
+            inputPicture.value = '';
+            sectionAddPicture.innerHTML = '';
+            submitButton.disabled = true;
+            return;
+        }
+
+        if (fileMaxSize < file.size) {
+            alert("L'image ne doit pas dépasser 4 Mo.");
+            inputPicture.value = '';
+            sectionAddPicture.innerHTML = '';
+            submitButton.disabled = true;
+            return;
+        }
+
+
+    }
+
+    inputPicture.addEventListener ('change', validForm );
+    inputTitre.addEventListener ('input', validForm);
+    inputCategorie.addEventListener ('change', validForm);
+
 
 }
 
