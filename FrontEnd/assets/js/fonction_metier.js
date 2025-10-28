@@ -259,37 +259,12 @@ export async function requestDeleteWork(id, token, works) {
     }
 }
 
-// export function checkFormatSizeFile () {
-
-//     document.getElementById('inputAddPictureFile').addEventListener('change', function (event) {
-
-      
-
-//         // // Récupérer le fichier
-//         // const file = event.target.files[0];
-
-//         // // Définir taille maximale : ici 4 Mo
-//         // const fileMaxSize = 4 * 1024 * 1024;
-
-//         // // Définir types de fichier autorisés : ici PNG et JPG
-//         // const fileTypeAutorised = ['image/jpeg', 'image/png'];
-
-//         // if (file.size > fileMaxSize) {
-//         //     alert("L'image ne doit pas dépasser 4 Mo.");
-//         // } else if (!fileTypeAutorised.includes(file.type)) {
-//         //     alert("L'image doit être au format JPG ou PNG.");
-//         // } else {
-//         //     replacePlaceHolder ();               
-//         // }
-//     });
-
-// }
 
 export function replacePlaceHolder () {
     // Remplacer le placeholder par l'image
-    const sectionAddPicture = document.querySelector('#sectionAddPicture');
+    const sectionAddPicture = document.getElementById('sectionAddPicture');
     const fileInput = document.getElementById('inputAddPictureFile');
-    // const placeHolder = document.querySelector('#placeholderPictureFile');
+    const placeHolder = document.querySelector('#placeholderPictureFile');
 
     fileInput.addEventListener ("change", previewFile);
 
@@ -302,7 +277,7 @@ export function replacePlaceHolder () {
             let newFile = '<img id="newPictureFile" src="' + reader.result +'" alt="Image téléchargée">';
 
             sectionAddPicture.innerHTML = '';
-            // placeHolder.display = 'none';
+            placeHolder.display = 'none';
             sectionAddPicture.innerHTML += newFile;
         });
 
@@ -328,20 +303,17 @@ export function addListenerInput () {
 
     submitButton.disabled = true;
 
-    const validForm = () => {
-        console.log('Valid form')
+    // PROBLEME : l'image n'est affichée qu'après avoir validé 2 fois l'image, pourquoi ?
+    const validPicture = () => {
+        console.log('Valid Picture')
         const file = inputPicture.files[0];
         const titre = inputTitre.value.trim();
         const categorie = inputCategorie.value;
 
-        if (!file || !titre || !categorie) {
-            submitButton.disabled = true;
-            return;
-        }
-
         const validType = ['image/jpeg', 'image/png'];
         console.log(file);
         
+        //Vérifier le type de l'image
         if (!validType.includes(file.type)) {
             console.log('type');
             alert("L'image doit être au format JPG ou PNG.");
@@ -351,7 +323,9 @@ export function addListenerInput () {
             return;
         }
 
+        //Vérifier la taille de l'image
         if (fileMaxSize < file.size) {
+            console.log('size file');
             alert("L'image ne doit pas dépasser 4 Mo.");
             inputPicture.value = '';
             sectionAddPicture.innerHTML = '';
@@ -359,29 +333,39 @@ export function addListenerInput () {
             return;
         }
 
+        // En cas de réussite
+        if ((validType.includes(file.type)) && (fileMaxSize > file.size)) {
+            alert("Image téléchargée.");
+            replacePlaceHolder ();
+        }
+    }
+    
+    const validForm = () => {
+        const file = inputPicture.files[0];
+        const titre = inputTitre.value.trim();
+        const categorie = inputCategorie.value;
 
+        console.log(file);
+
+        if (!file || !titre || !categorie) {
+            console.log('nop');
+            submitButton.disabled = true;
+            return;
+        }
+
+        if (file && titre && categorie) {
+            console.log('gogogo');
+            submitButton.disabled = false;
+            return;
+        }
     }
 
-    inputPicture.addEventListener ('change', validForm );
+    inputPicture.addEventListener ('change', () => {
+       validPicture ();
+       validForm();
+    });
     inputTitre.addEventListener ('input', validForm);
     inputCategorie.addEventListener ('change', validForm);
 
 
 }
-
-// export function canSubmitNewWork () {
-//     // Les inputs
-//     const inputCategorie = document.getElementById('categorie');
-//     const inputTitre = document.getElementById('titre');
-//     const inputPicture = document.getElementById('newPictureFile');
-
-//     //Le bouton de submit
-//     const submitButton = document.getElementById('validAddPicture');
-
-//     submitButton.addEventListener('click', function (event) {
-//        if ((inputCategorie != '') && (inputTitre != null) && (inputPicture)) {
-//         submitButton.disabled = false;
-//         } 
-//     });
-
-// }
