@@ -475,20 +475,20 @@ input[type="file"]{
 	padding-bottom: 20px;
 }
 
-#add-photo-form {
+#addTitleCategorie {
 	width: 60%;
 	display: flex;
 	flex-direction: column;
 }
 
-#add-photo-form label,
-#add-photo-form input,
-#add-photo-form select {
+#addTitleCategorie label,
+#addTitleCategorie input,
+#addTitleCategorie select {
 	margin: 15px 0px 0px 0px;
 }
 
-#add-photo-form input,
-#add-photo-form select{
+#addTitleCategorie input,
+#addTitleCategorie select{
 	height: 50px;
 
 	font-size: 1.2em;
