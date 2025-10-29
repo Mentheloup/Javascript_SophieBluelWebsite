@@ -55,11 +55,13 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
-header {
+
+#normalHeader {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0
 }
+
 section {
 	margin: 50px 0
 }
@@ -97,6 +99,34 @@ h3{
 
 button {
 	all: unset;
+}
+
+/* EDITION MODE */
+
+#editionMode {
+	position: relative;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+	margin-left: -50vw;
+	margin-right: -50vw;
+	width: 100vw;
+
+	left: 50%;
+	right: 50%;
+
+	background-color: black;
+	color: white;
+
+	text-align: center;
+
+	padding: 20px 0;
+}
+
+#editionMode p {
+	margin-left: 7px;
 }
 
 /* BARRE NAVIGATION */

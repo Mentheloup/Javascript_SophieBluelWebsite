@@ -82,8 +82,12 @@ export function modeAdmin (token) {
 
         console.log("Admin !");
 
+        //Apparition du bouton pour la modale
         document.getElementById('filterSection').className = "hidden";
         document.getElementById('modifyButton').style = "";
+
+        //Apparition de la bande 'Mode édition'
+        document.getElementById('editionMode').style = "";
     
 
     } else {
