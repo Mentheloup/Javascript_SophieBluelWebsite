@@ -136,9 +136,14 @@ nav ul {
 	list-style-type: none;
 
 }
+
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+}
+
+#login a {
+	font-weight: 800;
 }
 
 li:hover {

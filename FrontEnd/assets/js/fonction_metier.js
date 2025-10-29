@@ -88,12 +88,34 @@ export function modeAdmin (token) {
 
         //Apparition de la bande 'Mode édition'
         document.getElementById('editionMode').style = "";
-    
+
+        //Apparition bouton logout
+        document.getElementById('instagramIcon').insertAdjacentHTML("beforebegin", '<li><a href="index.html" id="logout">logout</a></li>');
 
     } else {
         console.log("Visiteur");
+
+        //Apparition bouton login
+        document.getElementById('instagramIcon').insertAdjacentHTML("beforebegin", '<li id="login"><a href="login.html">login</a></li>');
     };
 };
+
+export function addListenerLogout () {
+    
+    console.log("LOGOUT ?");
+
+    document.getElementById('logout').addEventListener('click', (event) => {
+
+        event.preventDefault();
+
+        localStorage.removeItem('token');
+        console.log("LOGOUT !!!");
+
+        // Puis redirige manuellement :
+        window.location.href = 'index.html';
+
+    });
+}
 
 //GESTION MODAL MODIFY
 
