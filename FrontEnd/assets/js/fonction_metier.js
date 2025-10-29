@@ -288,27 +288,48 @@ export function replacePlaceHolder () {
 
 }
 
-export function saveWork (file, categorie, titre, token) {
+// export async function saveWork (file, categorie, titre, token) {    
 
-}
+//     // try {
+//     //         const response = await fetch("http://localhost:5678/api/works/" + id, {
+//     //             method: "POST",
+//     //             headers: {
+//     //                 "Accept": "*/*",
+//     //                 "Authorization": `Bearer ${token}`,
+//     //                 "Content-Type": "application/json"
+//     //             },
+
+//     //             body: JSON.stringify(newWork)
+
+//     //         });
+//     //     } catch (error) {
+//     //         console.error("Erreur lors de l'ajout de la nouvelle création :", error);
+//     //         alert("Erreur lors de l'ajout de la nouvelle création. Veuillez réessayer.");
+//     //     }
+
+// }
 
 export function addListenerInput () {
     const inputCategorie = document.getElementById('categorie');
-    const inputTitre = document.getElementById('titre');
+    const inputTitre = document.getElementById('title');
     const inputPicture = document.getElementById('inputAddPictureFile');
     const submitButton = document.getElementById('validAddPicture');
-    const formAddPictureFile = document.getElementById('formAddPictureFile');
     const sectionAddPicture = document.querySelector('#sectionAddPicture');
     const fileMaxSize = 4 * 1024 * 1024;
 
     submitButton.disabled = true;
 
+    // DATA
+
+    // const file = inputPicture.files[0];
+    // const title = inputTitre.value.trim();
+    // const categorie = inputCategorie.value;
+
     // PROBLEME : l'image n'est affichée qu'après avoir validé 2 fois l'image, pourquoi ?
     const validPicture = () => {
         console.log('Valid Picture')
+
         const file = inputPicture.files[0];
-        const titre = inputTitre.value.trim();
-        const categorie = inputCategorie.value;
 
         const validType = ['image/jpeg', 'image/png'];
         console.log(file);
@@ -341,31 +362,48 @@ export function addListenerInput () {
     }
     
     const validForm = () => {
+    
         const file = inputPicture.files[0];
-        const titre = inputTitre.value.trim();
+        const title = inputTitre.value.trim();
         const categorie = inputCategorie.value;
 
         console.log(file);
+        console.log(title);
+        console.log(categorie);
 
-        if (!file || !titre || !categorie) {
+        if (!file || !title || !categorie) {
             console.log('nop');
             submitButton.disabled = true;
             return;
         }
 
-        if (file && titre && categorie) {
+        if (file && title && categorie) {
             console.log('gogogo');
             submitButton.disabled = false;
             return;
         }
     }
 
+    // Verification quand input ajoute/modifie
     inputPicture.addEventListener ('change', () => {
        validPicture ();
        validForm();
     });
+
     inputTitre.addEventListener ('input', validForm);
     inputCategorie.addEventListener ('change', validForm);
 
 
+    //Quand le bouton 'Valider' est disponible
+    const formValidNewWork = document.getElementById('formAddPictureFile');
+
+    formValidNewWork.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        //Création formData à partir formulaire
+        const formData = new FormData(formValidNewWork);
+
+        console.log(formData);
+        
+    });
 }

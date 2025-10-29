@@ -35,6 +35,4 @@ generateGalleryModal (works);
 switchModalAddPhoto ();
 generateCategories (listeFiltres);
 addListenerDeleteWork(works);
-// checkFormatSizeFile ();
 addListenerInput();
-// canSubmitNewWork ();
