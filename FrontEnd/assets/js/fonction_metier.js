@@ -345,6 +345,11 @@ export function addListenerInput () {
 
     submitButton.disabled = true;
 
+    //Création formData à remplir
+        const formData = new FormData();
+
+        console.log(formData);
+
     // DATA
 
     // const file = inputPicture.files[0];
@@ -358,7 +363,6 @@ export function addListenerInput () {
         const file = inputPicture.files[0];
 
         const validType = ['image/jpeg', 'image/png'];
-        console.log(file);
         
         //Vérifier le type de l'image
         if (!validType.includes(file.type)) {
@@ -383,6 +387,10 @@ export function addListenerInput () {
         // En cas de réussite
         if ((validType.includes(file.type)) && (fileMaxSize > file.size)) {
             alert("Image téléchargée.");
+
+            formData.append('image', file);
+            console.log(formData);
+
             replacePlaceHolder ();
         }
     }
@@ -405,6 +413,14 @@ export function addListenerInput () {
 
         if (file && title && categorie) {
             console.log('gogogo');
+
+            // Ajout textes au formData
+            formData.append('title', title);
+            formData.append('categorie', categorie);
+
+            console.log(formData);
+
+            //Activation bouton valider formulaire
             submitButton.disabled = false;
             return;
         }
@@ -420,16 +436,15 @@ export function addListenerInput () {
     inputCategorie.addEventListener ('change', validForm);
 
 
+}
+
+export function sendForm () {
     //Quand le bouton 'Valider' est disponible
     const formValidNewWork = document.getElementById('formAddPictureFile');
 
     formValidNewWork.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        //Création formData à partir formulaire
-        const formData = new FormData(formValidNewWork);
-
-        console.log(formData);
         
     });
 }
