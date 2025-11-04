@@ -552,7 +552,9 @@ input[type="file"]{
 #addPictureFile:hover,
 #addPictureFile:focus,
 #validAddPicture:hover,
-#validAddPicture:focus {
+#validAddPicture:focus,
+#navButtons li:hover,
+#navButtons li:focus {
   text-decoration: none;
   cursor: pointer;
 }
