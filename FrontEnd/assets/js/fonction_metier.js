@@ -80,8 +80,6 @@ export function addListenerAllFilter (works) {
 export function modeAdmin (token) {
     if (token !== null) {
 
-        console.log("Admin !");
-
         //Apparition du bouton pour la modale
         document.getElementById('filterSection').className = "hidden";
         document.getElementById('modifyButton').style = "";
@@ -93,7 +91,6 @@ export function modeAdmin (token) {
         document.getElementById('instagramIcon').insertAdjacentHTML("beforebegin", '<li><a href="index.html" id="logout">logout</a></li>');
 
     } else {
-        console.log("Visiteur");
 
         //Apparition bouton login
         document.getElementById('instagramIcon').insertAdjacentHTML("beforebegin", '<li id="login"><a href="login.html">login</a></li>');
@@ -101,8 +98,6 @@ export function modeAdmin (token) {
 };
 
 export function addListenerLogout () {
-    
-    console.log("LOGOUT ?");
 
     document.getElementById('logout').addEventListener('click', (event) => {
 
@@ -231,7 +226,6 @@ export function addListenerDeleteWork (works) {
             let confirmation = confirm("Êtes-vous sûr de vouloir supprimer ?");
 
             if (confirmation === true) {
-                console.log("On demande de supprimer.")
                 const id = button.id;
                 requestDeleteWork(id, token, works);
             };
@@ -255,7 +249,6 @@ export async function requestDeleteWork(id, token, works) {
         });
 
         if (response.status === 204) {
-            console.log("Work supprimé avec succès !");
 
             // Refetch les données depuis l'API
             const updatedWorks = await fetchWorks();
@@ -268,8 +261,6 @@ export async function requestDeleteWork(id, token, works) {
 
             // Re-ajouter les listeners pour les nouveaux boutons de suppression
             addListenerDeleteWork();
-
-            console.log("DOM réactualisé !");
 
         } else if (response.status === 401) {
             console.log("Token invalide, redirection vers login");
@@ -314,28 +305,8 @@ export function replacePlaceHolder () {
 
 }
 
-// export async function saveWork (file, categorie, titre, token) {    
-
-//     // try {
-//     //         const response = await fetch("http://localhost:5678/api/works/" + id, {
-//     //             method: "POST",
-//     //             headers: {
-//     //                 "Accept": "*/*",
-//     //                 "Authorization": `Bearer ${token}`,
-//     //                 "Content-Type": "application/json"
-//     //             },
-
-//     //             body: JSON.stringify(newWork)
-
-//     //         });
-//     //     } catch (error) {
-//     //         console.error("Erreur lors de l'ajout de la nouvelle création :", error);
-//     //         alert("Erreur lors de l'ajout de la nouvelle création. Veuillez réessayer.");
-//     //     }
-
-// }
-
-export function addListenerInput () {
+export function addListenerInput (token) {
+    //CONSTANTS
     const inputCategorie = document.getElementById('categorie');
     const inputTitre = document.getElementById('title');
     const inputPicture = document.getElementById('inputAddPictureFile');
@@ -345,16 +316,8 @@ export function addListenerInput () {
 
     submitButton.disabled = true;
 
-    //Création formData à remplir
-        const formData = new FormData();
-
-        console.log(formData);
-
-    // DATA
-
-    // const file = inputPicture.files[0];
-    // const title = inputTitre.value.trim();
-    // const categorie = inputCategorie.value;
+    const formData = new FormData();
+    console.log("Création FormData");
 
     // PROBLEME : l'image n'est affichée qu'après avoir validé 2 fois l'image, pourquoi ?
     const validPicture = () => {
@@ -388,6 +351,8 @@ export function addListenerInput () {
         if ((validType.includes(file.type)) && (fileMaxSize > file.size)) {
             alert("Image téléchargée.");
 
+            //Clean previous data
+            formData.delete('image');
             formData.append('image', file);
             console.log(formData);
 
@@ -414,14 +379,30 @@ export function addListenerInput () {
         if (file && title && categorie) {
             console.log('gogogo');
 
+            //Clean orevious data
+            formData.delete('title');
+            formData.delete('category');
+
             // Ajout textes au formData
             formData.append('title', title);
-            formData.append('categorie', categorie);
+
+            //Récupérer un ID pour la catégorie
+            if (categorie === 'Appartements') {
+                formData.append('category', parseInt(1));
+            } else if (categorie === 'Objets') {
+                formData.append('category', 2);
+            } else if (categorie === 'Hotels & restaurants') {
+                formData.append('category', 3);
+            }
 
             console.log(formData);
 
             //Activation bouton valider formulaire
             submitButton.disabled = false;
+
+            //Possibilité envoie du form
+            sendForm (formData, token);
+
             return;
         }
     }
@@ -438,13 +419,44 @@ export function addListenerInput () {
 
 }
 
-export function sendForm () {
+export async function sendForm (formData, token) {
     //Quand le bouton 'Valider' est disponible
     const formValidNewWork = document.getElementById('formAddPictureFile');
+    const submitButton = document.getElementById('validAddPicture');
 
-    formValidNewWork.addEventListener("submit", async (event) => {
-        event.preventDefault();
 
-        
-    });
+    if (submitButton.disabled === false) {
+
+        formValidNewWork.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            fetch("http://localhost:5678/api/works/", {
+                    method: "POST",
+                    headers: {
+                        "Accept": "*/*",
+                        "Authorization": `Bearer ${token}`
+                    },
+
+                    body: formData,
+
+                })
+            .then(response => response.json())
+            .then(formData => console.log(formData))
+            .catch(error => console.error(error));
+
+            // CLEAN INPUT
+            const inputCategorie = document.getElementById('categorie');
+            const inputTitre = document.getElementById('title');
+            const inputPicture = document.getElementById('inputAddPictureFile');
+            
+            inputCategorie.value = '';
+            inputTitre.value = '';
+            inputPicture.value = '';
+
+            //CLEAN FORMDATA
+            formData.delete('title');
+            formData.delete('category');
+            formData.delete('image');
+        });
+    }
 }

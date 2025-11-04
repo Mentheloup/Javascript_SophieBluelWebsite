@@ -39,4 +39,4 @@ generateGalleryModal (works);
 switchModalAddPhoto ();
 generateCategories (listeFiltres);
 addListenerDeleteWork(works);
-addListenerInput();
+addListenerInput(token);
