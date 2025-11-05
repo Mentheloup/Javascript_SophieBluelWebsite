@@ -104,7 +104,6 @@ export function addListenerLogout () {
         event.preventDefault();
 
         localStorage.removeItem('token');
-        console.log("LOGOUT !!!");
 
         // Puis redirige manuellement :
         window.location.href = 'index.html';
@@ -236,9 +235,6 @@ export function addListenerDeleteWork (works) {
 
 export async function requestDeleteWork(id, token, works) {
 
-    console.log("Suppression du work ID:", id);
-    console.log("Token:", token);
-
     try {
         const response = await fetch("http://localhost:5678/api/works/" + id, {
             method: "DELETE",
@@ -283,24 +279,21 @@ export function replacePlaceHolder () {
     const fileInput = document.getElementById('inputAddPictureFile');
     const placeHolder = document.querySelector('#placeholderPictureFile');
 
-    fileInput.addEventListener ("change", previewFile);
+    const file = fileInput.files[0];
+    const reader = new FileReader();
 
-    function previewFile () {
-        const file = fileInput.files[0];
-        const reader = new FileReader();
+    reader.addEventListener("load", () => {
+    
+        console.log('Remplace placeholder')
+        let newFile = '<img id="newPictureFile" src="' + reader.result +'" alt="Image téléchargée">';
 
-        reader.addEventListener("load", () => {
-        
-            let newFile = '<img id="newPictureFile" src="' + reader.result +'" alt="Image téléchargée">';
+        sectionAddPicture.innerHTML = '';
+        placeHolder.display = 'none';
+        sectionAddPicture.innerHTML += newFile;
+    });
 
-            sectionAddPicture.innerHTML = '';
-            placeHolder.display = 'none';
-            sectionAddPicture.innerHTML += newFile;
-        });
-
-        if(file) {
-            reader.readAsDataURL(file);
-        }
+    if(file) {
+        reader.readAsDataURL(file);
     }
 
 }
@@ -329,7 +322,6 @@ export function addListenerInput (token) {
         
         //Vérifier le type de l'image
         if (!validType.includes(file.type)) {
-            console.log('type');
             alert("L'image doit être au format JPG ou PNG.");
             inputPicture.value = '';
             sectionAddPicture.innerHTML = '';
@@ -339,7 +331,6 @@ export function addListenerInput (token) {
 
         //Vérifier la taille de l'image
         if (fileMaxSize < file.size) {
-            console.log('size file');
             alert("L'image ne doit pas dépasser 4 Mo.");
             inputPicture.value = '';
             sectionAddPicture.innerHTML = '';
@@ -354,7 +345,6 @@ export function addListenerInput (token) {
             //Clean previous data
             formData.delete('image');
             formData.append('image', file);
-            console.log(formData);
 
             replacePlaceHolder ();
         }
@@ -409,7 +399,7 @@ export function addListenerInput (token) {
 
     // Verification quand input ajoute/modifie
     inputPicture.addEventListener ('change', () => {
-       validPicture ();
+       validPicture();
        validForm();
     });
 
@@ -457,6 +447,8 @@ export async function sendForm (formData, token) {
             formData.delete('title');
             formData.delete('category');
             formData.delete('image');
+
+            formData = null;
         });
     }
 }
