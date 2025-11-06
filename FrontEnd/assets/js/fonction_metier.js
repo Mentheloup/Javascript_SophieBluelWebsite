@@ -277,7 +277,7 @@ export function replacePlaceHolder () {
     // Remplacer le placeholder par l'image
     const sectionAddPicture = document.getElementById('sectionAddPicture');
     const fileInput = document.getElementById('inputAddPictureFile');
-    const placeHolder = document.querySelector('#placeholderPictureFile');
+    const placeHolder = document.getElementById('placeholderPictureFile');
 
     const file = fileInput.files[0];
     const reader = new FileReader();
@@ -288,7 +288,7 @@ export function replacePlaceHolder () {
         let newFile = '<img id="newPictureFile" src="' + reader.result +'" alt="Image téléchargée">';
 
         sectionAddPicture.innerHTML = '';
-        placeHolder.display = 'none';
+        placeHolder.hidden = true;
         sectionAddPicture.innerHTML += newFile;
     });
 
@@ -298,7 +298,7 @@ export function replacePlaceHolder () {
 
 }
 
-export function addListenerInput (token) {
+export function addListenerInput (token, works) {
     //CONSTANTS
     const inputCategorie = document.getElementById('categorie');
     const inputTitre = document.getElementById('title');
@@ -312,7 +312,6 @@ export function addListenerInput (token) {
     const formData = new FormData();
     console.log("Création FormData");
 
-    // PROBLEME : l'image n'est affichée qu'après avoir validé 2 fois l'image, pourquoi ?
     const validPicture = () => {
         console.log('Valid Picture')
 
@@ -324,7 +323,7 @@ export function addListenerInput (token) {
         if (!validType.includes(file.type)) {
             alert("L'image doit être au format JPG ou PNG.");
             inputPicture.value = '';
-            sectionAddPicture.innerHTML = '';
+            // sectionAddPicture.innerHTML = '';
             submitButton.disabled = true;
             return;
         }
@@ -333,7 +332,7 @@ export function addListenerInput (token) {
         if (fileMaxSize < file.size) {
             alert("L'image ne doit pas dépasser 4 Mo.");
             inputPicture.value = '';
-            sectionAddPicture.innerHTML = '';
+            // sectionAddPicture.innerHTML = '';
             submitButton.disabled = true;
             return;
         }
@@ -415,40 +414,45 @@ export async function sendForm (formData, token) {
     const submitButton = document.getElementById('validAddPicture');
 
 
-    if (submitButton.disabled === false) {
+    formValidNewWork.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-        formValidNewWork.addEventListener("submit", async (event) => {
-            event.preventDefault();
+        fetch("http://localhost:5678/api/works/", {
+                method: "POST",
+                headers: {
+                    "Accept": "*/*",
+                    "Authorization": `Bearer ${token}`
+                },
 
-            fetch("http://localhost:5678/api/works/", {
-                    method: "POST",
-                    headers: {
-                        "Accept": "*/*",
-                        "Authorization": `Bearer ${token}`
-                    },
+                body: formData,
 
-                    body: formData,
+            })
+        .then(response => response.json())
+        .then(formData => console.log(formData))
+        .catch(error => console.error(error));
 
-                })
-            .then(response => response.json())
-            .then(formData => console.log(formData))
-            .catch(error => console.error(error));
+        // CLEAN INPUT
+        const inputCategorie = document.getElementById('categorie');
+        const inputTitre = document.getElementById('title');
+        const inputPicture = document.getElementById('inputAddPictureFile');
+        
+        inputCategorie.value = '';
+        inputTitre.value = '';
+        inputPicture.value = '';
 
-            // CLEAN INPUT
-            const inputCategorie = document.getElementById('categorie');
-            const inputTitre = document.getElementById('title');
-            const inputPicture = document.getElementById('inputAddPictureFile');
-            
-            inputCategorie.value = '';
-            inputTitre.value = '';
-            inputPicture.value = '';
+        //CLEAN FORMDATA
+        formData.delete('title');
+        formData.delete('category');
+        formData.delete('image');
 
-            //CLEAN FORMDATA
-            formData.delete('title');
-            formData.delete('category');
-            formData.delete('image');
 
-            formData = null;
-        });
-    }
+        //PUT BACK PLACEHOLDER + REMOVE PICTURE
+        console.log('Clean image');
+        const image = document.getElementById('newPictureFile');
+        image.remove();
+
+        const placeHolder = document.getElementById('placeholderPictureFile');
+        placeHolder.hidden = false;
+
+    }); 
 }
