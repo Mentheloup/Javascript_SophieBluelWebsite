@@ -207,9 +207,17 @@ export function generateCategories (listeFiltres) {
     listeFiltres.delete('Tous');
 
     // Boucle pour constituer le bout d'HTML pour chaque work
-    for (const categorie of listeFiltres) {
+    // for (const categorie of listeFiltres) {
 
-        let newCategorie = '<option value="' + categorie + '">' + categorie + '</option>';
+    //     let newCategorie = '<option value="' + categorie + '">' + categorie + '</option>';
+
+    //     parentGallery.innerHTML += newCategorie;
+    // }
+
+    const arrayFiltres = Array.from(listeFiltres);
+
+    for (let i = 0; i < arrayFiltres.length; i++) {
+        let newCategorie = '<option data-idcategory="' + ( i + 1 ) + '" value="' + arrayFiltres[i] + '">' + arrayFiltres[i] + '</option>';
 
         parentGallery.innerHTML += newCategorie;
     }
@@ -383,14 +391,11 @@ export function addListenerInput (token, works) {
             // Ajout textes au formData
             formData.append('title', title);
 
-            //Récupérer un ID pour la catégorie
-            if (categorie === 'Appartements') {
-                formData.append('category', parseInt(1));
-            } else if (categorie === 'Objets') {
-                formData.append('category', 2);
-            } else if (categorie === 'Hotels & restaurants') {
-                formData.append('category', 3);
-            }
+            //Récupérer l'ID pour la catégorie, stocké dans le HTML
+            const selectedCategorie = inputCategorie.options[inputCategorie.selectedIndex];
+            const idCategory = selectedCategorie.getAttribute('data-idcategory');
+
+            formData.append('category', idCategory);
 
             console.log(formData);
 
