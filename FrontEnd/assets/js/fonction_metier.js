@@ -320,7 +320,6 @@ export function addListenerInput (token, works) {
     const inputTitre = document.getElementById('title');
     const inputPicture = document.getElementById('inputAddPictureFile');
     const submitButton = document.getElementById('validAddPicture');
-    const sectionAddPicture = document.querySelector('#sectionAddPicture');
     const fileMaxSize = 4 * 1024 * 1024;
 
     submitButton.disabled = true;
@@ -402,9 +401,6 @@ export function addListenerInput (token, works) {
             //Activation bouton valider formulaire
             submitButton.disabled = false;
 
-            //Possibilité envoie du form
-            sendForm (formData, token);
-
             return;
         }
     }
@@ -418,6 +414,8 @@ export function addListenerInput (token, works) {
     inputTitre.addEventListener ('input', validForm);
     inputCategorie.addEventListener ('change', validForm);
 
+    //Possibilité envoie du form
+    sendForm (formData, token);
 
 }
 
@@ -426,10 +424,13 @@ export async function sendForm (formData, token) {
     const formValidNewWork = document.getElementById('formAddPictureFile');
     const submitButton = document.getElementById('validAddPicture');
 
+    
 
     formValidNewWork.addEventListener("submit", async (event) => {
         event.preventDefault();
 
+        if (submitButton.disabled) return;
+        
         try {
             const response = await fetch("http://localhost:5678/api/works/", {
                 method: "POST",
