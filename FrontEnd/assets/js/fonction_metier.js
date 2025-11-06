@@ -474,6 +474,9 @@ export async function sendForm (formData, token) {
         generateGalleryModal(updatedWorks);
         addListenerDeleteWork();
 
+        //Turn off valide button
+        submitButton.disabled = true;
+
         } catch (error) {
             console.error(error);
             alert("Erreur lors de l'ajout de l'image. Veuillez réessayer.");
