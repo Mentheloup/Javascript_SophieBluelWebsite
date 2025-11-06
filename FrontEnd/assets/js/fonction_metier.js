@@ -278,18 +278,26 @@ export function replacePlaceHolder () {
     const sectionAddPicture = document.getElementById('sectionAddPicture');
     const fileInput = document.getElementById('inputAddPictureFile');
     const placeHolder = document.getElementById('placeholderPictureFile');
-
+     
     const file = fileInput.files[0];
     const reader = new FileReader();
 
     reader.addEventListener("load", () => {
     
         console.log('Remplace placeholder')
-        let newFile = '<img id="newPictureFile" src="' + reader.result +'" alt="Image téléchargée">';
+        // let newFile = '<img id="newPictureFile" src="' + reader.result +'" alt="Image téléchargée">';
 
-        sectionAddPicture.innerHTML = '';
+        const newImage = document.createElement('img');
+        newImage.id = 'newPictureFile';
+        newImage.src = reader.result;
+        newImage.alt = 'Image téléchargée';
+
+        // sectionAddPicture.innerHTML = '';
         placeHolder.hidden = true;
-        sectionAddPicture.innerHTML += newFile;
+        sectionAddPicture.appendChild(newImage);
+
+        //Le fait d'utiliser innerHTML semble casser le lien avec le placeholder pour en modifier l'état hidden
+        //D'où l'utilisation du appendChild à la place
     });
 
     if(file) {
@@ -318,7 +326,7 @@ export function addListenerInput (token, works) {
         const file = inputPicture.files[0];
 
         const validType = ['image/jpeg', 'image/png'];
-        
+
         //Vérifier le type de l'image
         if (!validType.includes(file.type)) {
             alert("L'image doit être au format JPG ou PNG.");
@@ -345,7 +353,7 @@ export function addListenerInput (token, works) {
             formData.delete('image');
             formData.append('image', file);
 
-            replacePlaceHolder ();
+            replacePlaceHolder();
         }
     }
     
@@ -368,7 +376,7 @@ export function addListenerInput (token, works) {
         if (file && title && categorie) {
             console.log('gogogo');
 
-            //Clean orevious data
+            //Clean previous data
             formData.delete('title');
             formData.delete('category');
 
@@ -417,19 +425,20 @@ export async function sendForm (formData, token) {
     formValidNewWork.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        fetch("http://localhost:5678/api/works/", {
+        try {
+            const response = await fetch("http://localhost:5678/api/works/", {
                 method: "POST",
                 headers: {
                     "Accept": "*/*",
                     "Authorization": `Bearer ${token}`
                 },
-
                 body: formData,
+            });
 
-            })
-        .then(response => response.json())
-        .then(formData => console.log(formData))
-        .catch(error => console.error(error));
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP ${response.status}`);
+            }
+            
 
         // CLEAN INPUT
         const inputCategorie = document.getElementById('categorie');
@@ -449,10 +458,21 @@ export async function sendForm (formData, token) {
         //PUT BACK PLACEHOLDER + REMOVE PICTURE
         console.log('Clean image');
         const image = document.getElementById('newPictureFile');
-        image.remove();
+        if (image) image.remove();
 
         const placeHolder = document.getElementById('placeholderPictureFile');
-        placeHolder.hidden = false;
+        if (placeHolder) placeHolder.hidden = false;
+
+        // Refresh works after add
+        const updatedWorks = await fetchWorks();
+        generateWorks(updatedWorks);
+        generateGalleryModal(updatedWorks);
+        addListenerDeleteWork();
+
+        } catch (error) {
+            console.error(error);
+            alert("Erreur lors de l'ajout de l'image. Veuillez réessayer.");
+        }
 
     }); 
 }
