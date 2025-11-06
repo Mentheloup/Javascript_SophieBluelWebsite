@@ -293,7 +293,7 @@ export function replacePlaceHolder () {
         newImage.alt = 'Image téléchargée';
 
         // sectionAddPicture.innerHTML = '';
-        placeHolder.hidden = true;
+        placeHolder.style.display = 'none';
         sectionAddPicture.appendChild(newImage);
 
         //Le fait d'utiliser innerHTML semble casser le lien avec le placeholder pour en modifier l'état hidden
@@ -461,7 +461,7 @@ export async function sendForm (formData, token) {
         if (image) image.remove();
 
         const placeHolder = document.getElementById('placeholderPictureFile');
-        if (placeHolder) placeHolder.hidden = false;
+        if (placeHolder) placeHolder.style.display = 'flex';
 
         // Refresh works after add
         const updatedWorks = await fetchWorks();

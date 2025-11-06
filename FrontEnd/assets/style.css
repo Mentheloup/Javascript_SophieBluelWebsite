@@ -455,8 +455,7 @@ footer nav ul {
 
 /* MODAL BODY ADD PICTURE */
 
-#sectionAddPicture,
-#placeholderPictureFile {
+#sectionAddPicture {
 	width: 60%;
 	display: flex;
 	flex-direction: column;
@@ -465,6 +464,13 @@ footer nav ul {
 	border-radius: 5px;
 
 	background-color: #E8F1F6;
+}
+
+#placeholderPictureFile {
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #sectionAddPicture img {
