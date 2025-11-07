@@ -291,21 +291,16 @@ export function replacePlaceHolder () {
     const reader = new FileReader();
 
     reader.addEventListener("load", () => {
-    
-        console.log('Remplace placeholder')
-        // let newFile = '<img id="newPictureFile" src="' + reader.result +'" alt="Image téléchargée">';
-
+        
+        // PICTURE TO REPLACE PLACEHOLDER
         const newImage = document.createElement('img');
         newImage.id = 'newPictureFile';
         newImage.src = reader.result;
         newImage.alt = 'Image téléchargée';
 
-        // sectionAddPicture.innerHTML = '';
         placeHolder.style.display = 'none';
         sectionAddPicture.appendChild(newImage);
 
-        //Le fait d'utiliser innerHTML semble casser le lien avec le placeholder pour en modifier l'état hidden
-        //D'où l'utilisation du appendChild à la place
     });
 
     if(file) {
@@ -338,7 +333,6 @@ export function addListenerInput (token, works) {
         if (!validType.includes(file.type)) {
             alert("L'image doit être au format JPG ou PNG.");
             inputPicture.value = '';
-            // sectionAddPicture.innerHTML = '';
             submitButton.disabled = true;
             return;
         }
@@ -347,7 +341,6 @@ export function addListenerInput (token, works) {
         if (fileMaxSize < file.size) {
             alert("L'image ne doit pas dépasser 4 Mo.");
             inputPicture.value = '';
-            // sectionAddPicture.innerHTML = '';
             submitButton.disabled = true;
             return;
         }
@@ -445,38 +438,39 @@ export async function sendForm (formData, token) {
                 throw new Error(`Erreur HTTP ${response.status}`);
             }
             
+            alert("Le nouveau projet a bien été ajouté.");
 
-        // CLEAN INPUT
-        const inputCategorie = document.getElementById('categorie');
-        const inputTitre = document.getElementById('title');
-        const inputPicture = document.getElementById('inputAddPictureFile');
-        
-        inputCategorie.value = '';
-        inputTitre.value = '';
-        inputPicture.value = '';
+            // CLEAN INPUT
+            const inputCategorie = document.getElementById('categorie');
+            const inputTitre = document.getElementById('title');
+            const inputPicture = document.getElementById('inputAddPictureFile');
+            
+            inputCategorie.value = '';
+            inputTitre.value = '';
+            inputPicture.value = '';
 
-        //CLEAN FORMDATA
-        formData.delete('title');
-        formData.delete('category');
-        formData.delete('image');
+            //CLEAN FORMDATA
+            formData.delete('title');
+            formData.delete('category');
+            formData.delete('image');
 
 
-        //PUT BACK PLACEHOLDER + REMOVE PICTURE
-        console.log('Clean image');
-        const image = document.getElementById('newPictureFile');
-        if (image) image.remove();
+            //PUT BACK PLACEHOLDER + REMOVE PICTURE
+            console.log('Clean image');
+            const image = document.getElementById('newPictureFile');
+            if (image) image.remove();
 
-        const placeHolder = document.getElementById('placeholderPictureFile');
-        if (placeHolder) placeHolder.style.display = 'flex';
+            const placeHolder = document.getElementById('placeholderPictureFile');
+            if (placeHolder) placeHolder.style.display = 'flex';
 
-        // Refresh works after add
-        const updatedWorks = await fetchWorks();
-        generateWorks(updatedWorks);
-        generateGalleryModal(updatedWorks);
-        addListenerDeleteWork();
+            // Refresh works after add
+            const updatedWorks = await fetchWorks();
+            generateWorks(updatedWorks);
+            generateGalleryModal(updatedWorks);
+            addListenerDeleteWork();
 
-        //Turn off valide button
-        submitButton.disabled = true;
+            //Turn off valide button
+            submitButton.disabled = true;
 
         } catch (error) {
             console.error(error);
