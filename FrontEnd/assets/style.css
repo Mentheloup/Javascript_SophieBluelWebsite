@@ -539,6 +539,12 @@ input[type="file"]{
 	background-color: white;
 }
 
+#categorie option {
+
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+}
+
 #validAddPicture:disabled {
  	background-color: #A7A7A7 ;
 }
