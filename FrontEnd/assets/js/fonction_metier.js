@@ -256,7 +256,7 @@ export async function requestDeleteWork(id, token, serveur) {
             generateGalleryModal(updatedWorks);
 
             // Re-ajouter les listeners pour les nouveaux boutons de suppression
-            addListenerDeleteWork();
+            addListenerDeleteWork(serveur);
 
         } else if (response.status === 401) {
             console.log("Token invalide, redirection vers login");
