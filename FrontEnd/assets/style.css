@@ -593,7 +593,13 @@ input[type="file"]{
 #validAddPicture:hover,
 #validAddPicture:focus,
 #navButtons li:hover,
-#navButtons li:focus {
+#navButtons li:focus,
+#mentions:hover,
+#mentions:focus,
+#mot-de-passe-oublie:hover,
+#mot-de-passe-oublie:focus,
+#envoyer:hover,
+#envoyer:focus {
   text-decoration: none;
   cursor: pointer;
 }
