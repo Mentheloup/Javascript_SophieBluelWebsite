@@ -1,4 +1,4 @@
-import { fetchWorks } from "./fonction_get_data.js";
+import { fetchWorks, fetchCategories } from "./fonction_get_data.js";
 
 // WORKS
 
@@ -196,34 +196,26 @@ export function switchModalAddPhoto () {
     }
 };
 
-export function generateCategories (listeFiltres) {
+export async function generateCategories (serveur) {
     
     // Récupérer le futur parent
     const parentGallery = document.querySelector("#categorie");
 
     parentGallery.innerHTML += '<option value=""></option>' ;
 
-    //Remove useless categorie
-    listeFiltres.delete('Tous');
+    const arrayFiltres = await fetchCategories(serveur);
 
-    // Boucle pour constituer le bout d'HTML pour chaque work
-    // for (const categorie of listeFiltres) {
+    console.log(arrayFiltres);
 
-    //     let newCategorie = '<option value="' + categorie + '">' + categorie + '</option>';
-
-    //     parentGallery.innerHTML += newCategorie;
-    // }
-
-    const arrayFiltres = Array.from(listeFiltres);
-
-    for (let i = 0; i < arrayFiltres.length; i++) {
-        let newCategorie = '<option data-idcategory="' + ( i + 1 ) + '" value="' + arrayFiltres[i] + '">' + arrayFiltres[i] + '</option>';
+    arrayFiltres.map((item) => {
+        let newCategorie = '<option value="' + item.id + '">' + item.name + '</option>';
 
         parentGallery.innerHTML += newCategorie;
-    }
+    });
+
 }
 
-export function addListenerDeleteWork (works) {
+export function addListenerDeleteWork (serveur) {
     const allDeleteButtons = document.querySelectorAll(".deleteButton");
     const token = window.localStorage.getItem("token");
 
@@ -234,14 +226,14 @@ export function addListenerDeleteWork (works) {
 
             if (confirmation === true) {
                 const id = button.id;
-                requestDeleteWork(id, token, works);
+                requestDeleteWork(id, token, serveur);
             };
 
         })
     };
 }
 
-export async function requestDeleteWork(id, token, works) {
+export async function requestDeleteWork(id, token, serveur) {
 
     try {
         const response = await fetch("http://localhost:5678/api/works/" + id, {
@@ -255,7 +247,7 @@ export async function requestDeleteWork(id, token, works) {
         if (response.status === 204) {
 
             // Refetch les données depuis l'API
-            const updatedWorks = await fetchWorks();
+            const updatedWorks = await fetchWorks(serveur);
 
             // Régénérer la galerie principale
             generateWorks(updatedWorks);
@@ -309,7 +301,7 @@ export function replacePlaceHolder () {
 
 }
 
-export function addListenerInput (token, works) {
+export function addListenerInput (token, serveur) {
     //CONSTANTS
     const inputCategorie = document.getElementById('categorie');
     const inputTitre = document.getElementById('title');
@@ -383,11 +375,8 @@ export function addListenerInput (token, works) {
             // Ajout textes au formData
             formData.append('title', title);
 
-            //Récupérer l'ID pour la catégorie, stocké dans le HTML
-            const selectedCategorie = inputCategorie.options[inputCategorie.selectedIndex];
-            const idCategory = selectedCategorie.getAttribute('data-idcategory');
-
-            formData.append('category', idCategory);
+            //Ajout categorie
+            formData.append('category', categorie);
 
             console.log(formData);
 
@@ -408,11 +397,11 @@ export function addListenerInput (token, works) {
     inputCategorie.addEventListener ('change', validForm);
 
     //Possibilité envoie du form
-    sendForm (formData, token);
+    sendForm (formData, token, serveur);
 
 }
 
-export async function sendForm (formData, token) {
+export async function sendForm (formData, token, serveur) {
     //Quand le bouton 'Valider' est disponible
     const formValidNewWork = document.getElementById('formAddPictureFile');
     const submitButton = document.getElementById('validAddPicture');
@@ -464,10 +453,10 @@ export async function sendForm (formData, token) {
             if (placeHolder) placeHolder.style.display = 'flex';
 
             // Refresh works after add
-            const updatedWorks = await fetchWorks();
+            const updatedWorks = await fetchWorks(serveur);
             generateWorks(updatedWorks);
             generateGalleryModal(updatedWorks);
-            addListenerDeleteWork();
+            addListenerDeleteWork(serveur);
 
             //Turn off valide button
             submitButton.disabled = true;

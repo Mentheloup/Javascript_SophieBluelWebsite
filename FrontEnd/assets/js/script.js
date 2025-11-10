@@ -5,7 +5,7 @@ import {fetchWorks, generateListeFiltres} from "./fonction_get_data.js";
 // RECUPERER WORKS
 const serveur = "http://localhost:5678/api/";
 
-const works = await fetchWorks();
+const works = await fetchWorks(serveur);
 
 //GENERER BOUTONS FILTRES
 const listeFiltres = new Set();
@@ -37,6 +37,6 @@ if (token !== null) {
 openCloseModalModify ();
 generateGalleryModal (works);
 switchModalAddPhoto ();
-generateCategories (listeFiltres);
-addListenerDeleteWork(works);
-addListenerInput(token);
+generateCategories (serveur);
+addListenerDeleteWork(serveur);
+addListenerInput(token, serveur);
