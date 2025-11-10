@@ -539,6 +539,13 @@ input[type="file"]{
 	background-color: white;
 }
 
+#title {
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+
+	padding-left: 15px;
+}
+
 #categorie option {
 
 	font-family: 'Work Sans' ;
