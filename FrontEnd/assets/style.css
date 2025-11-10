@@ -62,6 +62,10 @@ body {
 	margin: 50px 0
 }
 
+main {
+	width: 95%;
+}
+
 section {
 	margin: 50px 0
 }
@@ -150,6 +154,10 @@ li:hover {
 	color: #B1663C;
 }
 
+ul a {
+	all: unset;
+}
+
 /* INTRO */
 #introduction {
 	display: flex;
@@ -160,7 +168,6 @@ li:hover {
 }
 #introduction img {
 	display: block;
-	margin: auto;
 	width: 80%;
 }
 
@@ -176,11 +183,6 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-}
-
-/* NAV */
-ul a {
-	all: unset;
 }
 
 /* FILTER */
@@ -215,6 +217,12 @@ filter .filter-choice:checked + label {
 }
 
 /* GALLERY */
+#portfolio {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 #headProjets {
   display: flex;
   justify-content: center;
@@ -239,15 +247,25 @@ filter .filter-choice:checked + label {
 
 .gallery {
 	width: 100%;
+
 	display: grid;
+
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
+	/* grid-column-gap: 20px; */
 	grid-row-gap: 20px;
+
+	/* padding-left: 55px; */
+
+}
+
+.gallery figure {
+	width: 345px;
 }
 
 .gallery img {
-	width: 100%;
-
+	width: 345px;
+	height: 457px;
+	object-fit: cover;
 }
 
 /* CONTACT */
