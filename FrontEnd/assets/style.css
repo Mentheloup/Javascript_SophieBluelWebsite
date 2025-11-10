@@ -408,14 +408,17 @@ footer nav ul {
 	align-content: space-around;
 	justify-content: flex-start;
 
-	gap:40px 18px;
+	gap:40px 15px;
 
 	width: 80%;
 	height: 100%;
 }
 
 .littleFigure img {
-	width: 102px;
+	width: 105px;
+	height: 140px;
+	object-fit: cover;
+
 }
 
 .littleFigure .deleteButton {
